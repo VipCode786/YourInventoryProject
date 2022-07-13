@@ -27,9 +27,9 @@ function Sidebar() {
             </Link>
         </ul>
         <ul>
-            <Link to="/users">
+           
             <li><SupervisedUserCircleRoundedIcon className="icon"/><span> Users</span></li>
-            </Link>
+            
         </ul>
         <ul>
         <Link to="/products">

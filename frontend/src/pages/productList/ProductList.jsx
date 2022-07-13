@@ -1,13 +1,14 @@
-import "./list.scss"
+import "./productList.scss"
 import Sidebar from "../../components/sidebar/Sidebar"
 import Navbar from "../../components/navbar/Navbar"
 // import Datatables from "../../components/datatable/Datatables"
- import Table from "../../components/table/Table"
+ import Table from "../../components/ProductTable/ProductTable"
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productListAction } from "../../actions/productListAction";
+import ProductTable from "../../components/ProductTable/ProductTable";
 
-const List = () => {
+const ProductList = () => {
 
    const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
@@ -23,7 +24,6 @@ const List = () => {
         <Navbar />
         {/* <Table/> */}
         <div>
-          <h1>Redux Thunk Tutorial</h1>
           {loading ? (
             <h2>Loading ....</h2>
           ) : error ? (
@@ -31,7 +31,7 @@ const List = () => {
           ) : (
 
             (
-              <Table  productLists={productLists} />
+              <ProductTable  productLists={productLists} />
             )
             // <div>
             //  {
@@ -47,4 +47,4 @@ const List = () => {
   )
 }
 
-export default List
+export default ProductList;

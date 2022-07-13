@@ -1,10 +1,18 @@
 import React from "react";
-
-const Table = ({ productLists }) => {
+import './productTable.scss'
+import Table from 'react-bootstrap/Table';
+import { Link } from "react-router-dom";
+const ProductTable = ({ productLists }) => {
   return (
-    <div>
-      <h1>User Comp</h1>
-      <table border="1">
+    <div className="datatable">
+      <div className="datatableTitle">
+        Add New Product
+        <Link to="/products/addProduct" className="link">
+          Add New
+        </Link>
+      </div>
+    
+    <table >
         <thead>
           <tr>
             <th>Product Name</th>
@@ -12,6 +20,7 @@ const Table = ({ productLists }) => {
             <th>Category </th>
             <th>Price</th>
             <th>QTY</th>
+            <th>ACTIONS</th>
           </tr>
         </thead>
 
@@ -30,6 +39,14 @@ const Table = ({ productLists }) => {
               <td>{product.category}</td>
               <td>{product.price}</td>
               <td>{product.countInStock}</td>
+              <td className="cellAction">
+                  <button type="button"  className="viewButton">
+                    Edit
+                  </button>
+                  <button type="button"  className="deleteButton" >
+                    Delete
+                  </button>
+                </td>
             </tr>
           </tbody>
         ))}
@@ -38,4 +55,4 @@ const Table = ({ productLists }) => {
   );
 };
 
-export default Table;
+export default ProductTable;
