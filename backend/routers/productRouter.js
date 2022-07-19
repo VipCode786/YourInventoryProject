@@ -3,6 +3,10 @@ import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Product from '../models/productModel.js';
 import { isAdmin, isAuth } from '../utils.js';
+import multer from 'multer';
+import path from 'path';
+
+
 
 const productRouter = express.Router();
 
@@ -35,12 +39,26 @@ productRouter.get(
   })
 );
 
+
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+      //cb(null, './public/images');
+      cb(null, 'images');
+  },
+  filename: function(req, file, cb) {   
+      cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+let upload = multer({ storage: storage });
+
+
 productRouter.post(
-  '/',
+  '/',upload.single('image'),
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
       name: req.body.name,
-      image: req.body.image,
+      image: req.file.filename,
       price: req.body.price,
       category: req.body.category,
       brand: req.body.brand,
@@ -52,17 +70,35 @@ productRouter.post(
     res.send({ message: 'Product Created', product: createdProduct });
   })
 );
+
+// productRouter.post(
+//   '/',upload.single('image'),
+//   expressAsyncHandler(async (req, res) => {
+//     const product = new Product({
+//       name: req.body.name,
+//       image: req.file.filename,
+//       price: req.body.price,
+//       category: req.body.category,
+//       brand: req.body.brand,
+//       description:req.body.description,
+//       countInStock: req.body.countInStock,
+
+//     });
+//     const createdProduct = await product.save();
+//     res.send({ message: 'Product Created', product: createdProduct });
+//   })
+// );
 productRouter.put(
-  '/:id',
-  isAuth,
-  isAdmin,
+  '/:id',upload.single('image'),
+  // isAuth,
+  // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
     if (product) {
       product.name = req.body.name;
       product.price = req.body.price;
-      product.image = req.body.image;
+      //product.image = req.file.filename;
       product.category = req.body.category;
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;
@@ -77,8 +113,8 @@ productRouter.put(
 
 productRouter.delete(
   '/:id',
-  isAuth,
-  isAdmin,
+  // isAuth,
+  // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
