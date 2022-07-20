@@ -29,15 +29,15 @@ const NewProduct = () => {
     formData.append('price', productData.price);
     formData.append('countInStock', productData.countInStock);
 
-    // if (form.checkValidity() === false || Object.keys(formErrors).length > 0) {
-    //   setFormErrors(validate(productData));      
-    //   console.log(formErrors);  
-    //   e.stopPropagation();
-    // } else {
+    if (form.checkValidity() === false || Object.keys(formErrors).length > 0) {
+      setFormErrors(validate(productData));      
+      console.log(formErrors);  
+      e.stopPropagation();
+    } else {
       dispatch(createProduct(formData));
-      navigate('/');
-    // }
-    //setIsSubmit(true);
+      navigate('/home');
+    }
+    setIsSubmit(true);
   }
 
   const validate = (values) => {

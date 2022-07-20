@@ -10,9 +10,18 @@ const userRouter = express.Router();
 userRouter.get(
   '/seed',
   expressAsyncHandler(async (req, res) => {
-    // await User.remove({});
+    await User.deleteMany({});
     const createdUsers = await User.insertMany(data.users);
     res.send({ createdUsers });
+  })
+);
+
+
+userRouter.get(
+  '/',
+  expressAsyncHandler(async (req, res) => {
+    const users = await User.find({});
+    res.send(users);
   })
 );
 
@@ -38,9 +47,12 @@ userRouter.post(
 
 userRouter.post(
   '/register',
+
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       name: req.body.name,
+      phone: req.body.phone,
+      address: req.body.address,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
     });
@@ -48,9 +60,11 @@ userRouter.post(
     res.send({
       _id: createdUser._id,
       name: createdUser.name,
+      address: createdUser.address,
+      phone: createdUser.phone,
       email: createdUser.email,
       isAdmin: createdUser.isAdmin,
-      token: generateToken(createdUser),
+      //token: generateToken(createdUser),
     });
   })
 );
@@ -67,25 +81,48 @@ userRouter.get(
   })
 );
 userRouter.put(
-  '/profile',
-  isAuth,
+  '/:id',
+  //isAuth,
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
+    const userID = req.params.id;
+    const user = await User.findById(userID);
     if (user) {
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 8);
-      }
+      user.phone = req.body.phone || user.phone;
+      user.address = req.body.address || user.address;
+      // if (req.body.password) {
+      //   user.password = bcrypt.hashSync(req.body.password, 8);
+      // }
       const updatedUser = await user.save();
       res.send({
         _id: updatedUser._id,
         name: updatedUser.name,
         email: updatedUser.email,
+        phone: updatedUser.phone,
+        address: updatedUser.address,
         isAdmin: updatedUser.isAdmin,
-        token: generateToken(updatedUser),
+     
+        
       });
     }
   })
 );
+
+
+userRouter.delete(
+  '/:id',
+  // isAuth,
+  // isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      const deleteUser = await user.remove();
+      res.send({ message: 'User Deleted', user: deleteUser });
+    } else {
+      res.status(404).send({ message: 'User Not Found' });
+    }
+  })
+);
+
 export default userRouter;

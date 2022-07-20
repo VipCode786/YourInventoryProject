@@ -1,0 +1,22 @@
+.list {
+    display: flex;
+    width: 100%;
+    .listContainer {
+      flex: 6;
+    }
+
+    .cellWithImg {
+      display: flex;
+      align-items: center;
+  
+      .cellImg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+      }
+
+    }
+  }
+  
