@@ -1,24 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./login.scss"
-import Form from "react-bootstrap/Form";
+import React, { useEffect, useState } from 'react'
+import { Form, Button } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { signin } from '../../actions/userActions';
 
-import Button from "react-bootstrap/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
-import { signin } from "../../actions/userActions";
 
-// import "./Login.css";
-
-export default function Login() {
-
-  const dispatch = useDispatch()
+const LogInUser = () => {
+   const dispatch = useDispatch()
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const userSignin = useSelector((state)=> state.userSignin);
-  const { userInfo , loading , error} = userSignin;
+   const { userInfoData , loading , error} = userSignin;
 
   function validateForm() {
 
@@ -34,10 +29,10 @@ export default function Login() {
   }
 
   useEffect(()=>{
-    if(userInfo){
+    if(userInfoData){
        navigate('/home');
     }
-},[userInfo]);
+},[userInfoData]);
 
   return (
 
@@ -102,3 +97,5 @@ export default function Login() {
   );
 
 }
+
+export default LogInUser

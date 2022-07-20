@@ -11,7 +11,7 @@ import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplicationsRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
-import {BrowserRouter as Router,Link} from "react-router-dom";
+import {BrowserRouter as Router,Link, NavLink} from "react-router-dom";
 
 function Sidebar() {
     return (
@@ -27,9 +27,9 @@ function Sidebar() {
             </Link>
         </ul>
         <ul>
-       
+            <Link to="/users">
             <li><SupervisedUserCircleRoundedIcon className="icon"/><span> Users</span></li>
-       
+            </Link>
         </ul>
         <ul>
         <Link to="/products">
@@ -37,14 +37,14 @@ function Sidebar() {
         </Link>
         </ul>
         <ul>
-            <a href="/users">
+            
             <li><ProductionQuantityLimitsRoundedIcon className="icon"/><span> Orders</span></li>
-            </a>
+           
         </ul>
         <ul>
-        <Link to="/users">
+      
             <li><LocalShippingRoundedIcon className="icon"/><span> Delivery</span></li>
-        </Link>
+       
         </ul>
         <ul>
             <li><QueryStatsRoundedIcon className="icon"/><span> Stats</span></li>

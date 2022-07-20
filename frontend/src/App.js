@@ -1,10 +1,10 @@
 import Home from "./pages/home/Home";
 import 'bootstrap/dist/css/bootstrap.min.css';
+//import SignInUser from "./pages/signInUser/SignInUser";
 import ProductList from "./pages/productList/ProductList";
-import Login from "./pages/login/Login";
-import Single from "./pages/single/Single";
 import ProductEdit from "./pages/productEdit/ProductEdit";
 import UserList from "./pages/userlist/UserList";
+import LogInUser from "./pages/logInUser/LogInUser";
 import {
   BrowserRouter,
   Routes,
@@ -17,34 +17,17 @@ import UserEdit from "./pages/userEdit/UserEdit";
 
 function App() {
   return (
-    <BrowserRouter>
     <div className="App">
       
 
      
-    <Routes>
-      <Route   path="/">
-        <Route index element={<Home/>}/>
-        <Route path="login" element={<Login/>}/>
-        <Route path="users">
-          <Route index element={<UserList/>}/>
-          <Route path="register" element={<Single/>}/>
-          <Route path="new" element={<UserEdit/>}/>        
-        </Route>
-        {/* <Route path="products">
-          <Route index element={<List/>}/>
-          <Route path=":productId" element={<Single/>}/>
-          <Route path="new" element={<New/>}/>        
-        </Route> */}
-      </Route>
-    </Routes>
-  
+   
 
-     {/* <BrowserRouter>
+     <BrowserRouter>
     <Routes>
       <Route path="/">
-        <Route index element={<Home/>}/>
-        <Route path="Login" element={<Login/>}/>
+        <Route index element={<LogInUser/>}/>
+         <Route path="home" element={<Home/>}/> 
         <Route path="users">
           <Route index element={<UserList/>}/>
           <Route path="register" element={<NewUser/>}/>
@@ -57,9 +40,9 @@ function App() {
         </Route>
       </Route>
     </Routes>
-  </BrowserRouter> */}
+  </BrowserRouter> 
     </div>
-    </BrowserRouter>
+ 
   );
 }
 
