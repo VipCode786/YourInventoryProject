@@ -6,8 +6,17 @@ import { userRegisterReducer,
    userDetailsReducer,
    userUpdateProfileReducer ,
    userListReducer,
-   userDeleteReducer
+   userDeleteReducer,
+   
+
  } from '../src/reducers/userReducers';
+
+ import {
+  warehouseListReducer,
+  warehouseCreateReducer,
+  warehouseDeleteReducer,
+  warehouseUpdateReducer
+ } from '../src/reducers/warehouseListReducer'
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -16,7 +25,11 @@ const rootReducer = combineReducers({
   userSignin: userSigninReducer,
   userRegister: userRegisterReducer,
   userList: userListReducer,
-  userDelete: userDeleteReducer
+  userDelete: userDeleteReducer,
+  warehouseList: warehouseListReducer,
+  warehouseCreat:warehouseCreateReducer,
+  warehouseDelete: warehouseDeleteReducer,
+  warehouseUpdate: warehouseUpdateReducer
 });
 
 const intialState = {};

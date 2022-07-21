@@ -14,6 +14,9 @@ import {
 import NewProduct from "./pages/newProduct/NewProduct";
 import NewUser from "./pages/newUser/NewUser";
 import UserEdit from "./pages/userEdit/UserEdit";
+import WareHouseList from "./pages/warehouseList/WareHouseList";
+import NewWarehouse from "./pages/newWarehouse/NewWarehouse";
+import WarehouseEdit from "./pages/warehouseEdit/WarehouseEdit";
 
 function App() {
   return (
@@ -26,8 +29,10 @@ function App() {
      <BrowserRouter>
     <Routes>
       <Route path="/">
-        <Route index element={<LogInUser/>}/>
-         <Route path="home" element={<Home/>}/> 
+      <Route index element={<Home/>}/>
+        {/* <Route index element={<LogInUser/>}/>
+         <Route path="home" element={<Home/>}/>
+          */}
         <Route path="users">
           <Route index element={<UserList/>}/>
           <Route path="register" element={<NewUser/>}/>
@@ -37,6 +42,11 @@ function App() {
           <Route index element={<ProductList/>}/>
           <Route path=":id" element={<ProductEdit/>}/>
           <Route path="addProduct" element={<NewProduct/>}/>        
+        </Route>
+        <Route path="warehouses">
+          <Route index element={<WareHouseList/>}/>
+          <Route path=":id" element={<WarehouseEdit/>}/>
+          <Route path="add" element={<NewWarehouse/>}/>        
         </Route>
       </Route>
     </Routes>

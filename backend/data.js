@@ -27,6 +27,30 @@ const data = {
       isAdmin: false,
     },
   ],
+
+  warehouses:[
+    {
+      name: 'Basir1',
+      email: 'admin1@example.com',
+      address: 'Noida Sector 441',
+      phone: '837347389',
+      
+    },
+    {
+      name: 'John',
+      email: 'user1@example.com',
+      address: 'Noida Sector 62',
+      phone: '83273447389',
+      
+    },
+    {
+      name: 'Vipul',
+      email: 'user2@example.com',
+      address: 'Noida Sector 61',
+      phone: '23332344343',
+     
+    },
+  ],
   products: [
     {
       name: 'Nike Slim Shirt',

@@ -37,9 +37,9 @@ function Sidebar() {
         </Link>
         </ul>
         <ul>
-            
-            <li><ProductionQuantityLimitsRoundedIcon className="icon"/><span> Orders</span></li>
-           
+        <Link to="/warehouses"> 
+            <li><ProductionQuantityLimitsRoundedIcon className="icon"/><span> WareHouse</span></li>
+         </Link>  
         </ul>
         <ul>
       
