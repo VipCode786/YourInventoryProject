@@ -7,12 +7,15 @@ import userRouter from './routers/userRouter.js';
 import orderRouter from './routers/orderRouter.js';
 import uploadRouter from './routers/uploadRouter.js';
 import warehouseRouter from './routers/warehouseRouter.js';
+import transferRouter from './routers/transferRouter.js';
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona', {
   useNewUrlParser: true,
@@ -27,6 +30,7 @@ app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
 app.use('/api/orders', orderRouter);
 app.use('/api/warehouses', warehouseRouter);
+app.use('/api/transfer', transferRouter);
 // app.get('/api/config/paypal', (req, res) => {
 //   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
 // });

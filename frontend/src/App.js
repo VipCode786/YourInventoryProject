@@ -17,6 +17,9 @@ import UserEdit from "./pages/userEdit/UserEdit";
 import WareHouseList from "./pages/warehouseList/WareHouseList";
 import NewWarehouse from "./pages/newWarehouse/NewWarehouse";
 import WarehouseEdit from "./pages/warehouseEdit/WarehouseEdit";
+import TransferProduct from "./pages/transferProduct/TransferProduct";
+import TransferTable from "./components/TransferTable/TransferTable";
+import TransferSubmit from "./pages/transferSubmit/TransferSubmit";
 
 function App() {
   return (
@@ -47,6 +50,11 @@ function App() {
           <Route index element={<WareHouseList/>}/>
           <Route path=":id" element={<WarehouseEdit/>}/>
           <Route path="add" element={<NewWarehouse/>}/>        
+        </Route>
+        <Route path="transfer">
+          <Route index element={<TransferProduct/>}/>
+          <Route path="transferSubmit/:id" element={<TransferSubmit/>}/>
+          <Route path="transferProduct" element={<TransferTable/>}/>        
         </Route>
       </Route>
     </Routes>

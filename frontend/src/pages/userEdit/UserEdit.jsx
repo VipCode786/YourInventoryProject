@@ -50,7 +50,7 @@ const UserEdit = () => {
     } else if(userData.password == confirmPassword)
       {
         dispatch(updateUserProfile(id,userData));
-        navigate('/home');
+        navigate('/');
       }
       else {
         alert('Passowrd Not matched')

@@ -40,7 +40,7 @@ const ProductEdit = () => {
     formData.append('countInStock', productData.countInStock);
 
      dispatch(updateProduct(id,formData));
-     navigate('/home');
+     navigate('/');
     // const validEmploy = employeeData.name && employeeData.email && employeeData.address && employeeData.phone ? true : false;
 
     // if (validEmploy) {

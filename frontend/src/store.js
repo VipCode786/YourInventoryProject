@@ -17,6 +17,7 @@ import { userRegisterReducer,
   warehouseDeleteReducer,
   warehouseUpdateReducer
  } from '../src/reducers/warehouseListReducer'
+import { transferReducer } from "./reducers/transferReducer";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
   warehouseList: warehouseListReducer,
   warehouseCreat:warehouseCreateReducer,
   warehouseDelete: warehouseDeleteReducer,
-  warehouseUpdate: warehouseUpdateReducer
+  warehouseUpdate: warehouseUpdateReducer,
+  transfer : transferReducer,
 });
 
 const intialState = {};

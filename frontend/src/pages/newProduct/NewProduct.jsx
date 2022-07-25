@@ -7,18 +7,41 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from "../../actions/productListAction";
 //import { createEmployee, getEmployees } from '../../actions/employeeAction';
+import { warehouseListAction } from "../../actions/warehouseAction";
 
 const NewProduct = () => {
-  const [productData, setproductData] = useState({ name: '', image: '',imageName:'', brand: '', category: '', description: '', price: '', countInStock: ''});
+  //Using state to keep track of what the selected fruit is
+  const [warehouseName, setwarehouseName] = useState("⬇️ Select a warehouse ⬇️")
+
+  const [productData, setproductData] = useState({ name: '', image: '', imageName: '', brand: '', category: '', description: '', price: '', countInStock: '' });
   const [formErrors, setFormErrors] = useState({});
   const dispatch = useDispatch();
- // const dispatchEmp = useDispatch();
- // const employees = useSelector((state) => state)
+  const warehousedispatch = useDispatch();
+
+  // const dispatchEmp = useDispatch();
+  // const employees = useSelector((state) => state)
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
-  
+
+
+  // const warehouseInfo = useSelector(state => state.warehouseList.warehouseLists)
+  // console.log("warehouseInfo", warehouseInfo)
+  const warehouseList = useSelector((state) => state.warehouseList);
+  const { loading, warehouseLists, error } = warehouseList;
+
+  useEffect(() => {
+    warehousedispatch(warehouseListAction());
+  }, [warehousedispatch]);
+
+
+  let handlewarehouse = (e) => {
+    setwarehouseName(e.target.value)
+  }
+
+ 
   const handleSubmit = (e) => {
-    e.preventDefault();    
+    e.preventDefault();
+    
     const form = e.currentTarget;
     const formData = new FormData();
     formData.append('name', productData.name);
@@ -28,14 +51,16 @@ const NewProduct = () => {
     formData.append('description', productData.description);
     formData.append('price', productData.price);
     formData.append('countInStock', productData.countInStock);
+    formData.append('warehouse', warehouseName);
 
+    console.log(formData)
     if (form.checkValidity() === false || Object.keys(formErrors).length > 0) {
-      setFormErrors(validate(productData));      
-      console.log(formErrors);  
+      setFormErrors(validate(productData));
+      console.log(formErrors);
       e.stopPropagation();
     } else {
       dispatch(createProduct(formData));
-      navigate('/home');
+      navigate('/');
     }
     setIsSubmit(true);
   }
@@ -46,25 +71,25 @@ const NewProduct = () => {
     //const existEmail = employees.filter(employee => employee.email === values.email);
     const errors = {};
 
-    if(!values.name)
+    if (!values.name)
       errors.name = "Your name is required!";
 
-    if(!values.brand) {
+    if (!values.brand) {
       errors.brand = "Your brand is required!";
-    } 
-    
+    }
+
     // if(values.email && existEmail.length === 1) {
     //   errors.email = "Your email is already exist!"; 
     // } 
-    
+
     // if(values.email && !(values.email.match(pattern))) {
     //   errors.email = "Your email is not match!";
     // }
 
-    if(!values.image)
+    if (!values.image)
       errors.image = "Your image is required!";
-    
-    if(!values.phone)
+
+    if (!values.phone)
       errors.phone = "Your category is required!";
 
     return errors;
@@ -76,11 +101,11 @@ const NewProduct = () => {
 
   return (
     <>
-    <div className="list">
-      <Sidebar />
-      <div className="listContainer">
-        <Navbar />
-      {/* <div className="container-xl">
+      <div className="list">
+        <Sidebar />
+        <div className="listContainer">
+          <Navbar />
+          {/* <div className="container-xl">
         <div className="table-responsive">
           <div className="table-wrapper">
             <div className="table-title">
@@ -93,68 +118,83 @@ const NewProduct = () => {
                 </div>
               </div>
             </div> */}
-            <Form onSubmit={handleSubmit} noValidate validated={isSubmit} enctype="multipart/form-data">
-              <Form.Group className="mb-3" controlId="formBasicName" onSubmit={handleSubmit}>
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" required placeholder="Enter name" name="name" value={productData.name} onChange={(e) => setproductData({ ...productData, name: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.name}</Form.Control.Feedback>
-              </Form.Group>
+          <Form onSubmit={handleSubmit} noValidate validated={isSubmit} enctype="multipart/form-data">
+            <Form.Group className="mb-3" controlId="formBasicName" onSubmit={handleSubmit}>
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" required placeholder="Enter name" name="name" value={productData.name} onChange={(e) => setproductData({ ...productData, name: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.name}</Form.Control.Feedback>
+            </Form.Group>
 
-              {/* <Form.Group className="mb-3" controlId="formBasicImage">
+            {/* <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Email</Form.Label>{!!formErrors.email ? 'true' : 'false'}
                 <Form.Control type="email" required placeholder="Enter email" name="email" value={productData.email} onChange={(e) => setEmployeeData({ ...productData, email: e.target.value })} isInvalid={formErrors.email} />
                 <Form.Control.Feedback type="invalid">{formErrors.email}</Form.Control.Feedback>
               </Form.Group> */}
 
-              <Form.Group className="mb-3" controlId="formBasicImage">
-                <Form.Label>Image</Form.Label>
-                <Form.Control type="file" required placeholder="Enter Image"  onChange={(e) =>  (console.log(e.target.files[0].name) , setproductData({ ...productData, image: e.target.files[0] , imageName:e.target.files[0].name}))} />
-                <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicImage">
+              <Form.Label>Image</Form.Label>
+              <Form.Control type="file" required placeholder="Enter Image" onChange={(e) => (console.log(e.target.files[0].name), setproductData({ ...productData, image: e.target.files[0], imageName: e.target.files[0].name }))} />
+              <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicBrand">
-                <Form.Label>Brand</Form.Label>
-                <Form.Control type="text" required placeholder="Enter Brand" name="brand" value={productData.brand} onChange={(e) => setproductData({ ...productData, brand: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicBrand">
+              <Form.Label>Brand</Form.Label>
+              <Form.Control type="text" required placeholder="Enter Brand" name="brand" value={productData.brand} onChange={(e) => setproductData({ ...productData, brand: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicCategory">
-                <Form.Label>Category</Form.Label>
-                <Form.Control type="text" required placeholder="Enter Category" name="category" value={productData.category} onChange={(e) => setproductData({ ...productData, category: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.category}</Form.Control.Feedback>
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicCategory">
+              <Form.Label>Category</Form.Label>
+              <Form.Control type="text" required placeholder="Enter Category" name="category" value={productData.category} onChange={(e) => setproductData({ ...productData, category: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.category}</Form.Control.Feedback>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Label>Description</Form.Label>
-                <Form.Control type="text" required placeholder="Enter Description " name="description" value={productData.description} onChange={(e) => setproductData({ ...productData, description: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicDescription">
+              <Form.Label>Description</Form.Label>
+              <Form.Control type="text" required placeholder="Enter Description " name="description" value={productData.description} onChange={(e) => setproductData({ ...productData, description: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+            </Form.Group>
 
-              <Form.Group className="mb-3" controlId="formBasicPrice">
-                <Form.Label>Price</Form.Label>
-                <Form.Control type="text" required placeholder="Enter Price " name="price" value={productData.price} onChange={(e) => setproductData({ ...productData, price: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
-              </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPrice">
+              <Form.Label>Price</Form.Label>
+              <Form.Control type="text" required placeholder="Enter Price " name="price" value={productData.price} onChange={(e) => setproductData({ ...productData, price: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
+            </Form.Group>
 
-              
-              <Form.Group className="mb-3" controlId="formBasicQTY">
-                <Form.Label>Price</Form.Label>
-                <Form.Control type="text" required placeholder="Enter QTY " name="brand" value={productData.countInStock} onChange={(e) => setproductData({ ...productData, countInStock: e.target.value })} />
-                <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
-              </Form.Group>
 
-              
-              
+            <Form.Group className="mb-3" controlId="formBasicQTY">
+              <Form.Label>countInStock</Form.Label>
+              <Form.Control type="text" required placeholder="Enter QTY " name="brand" value={productData.countInStock} onChange={(e) => setproductData({ ...productData, countInStock: e.target.value })} />
+              <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
+            </Form.Group>
 
-              <Button variant="success" type="submit">
-                Add
-              </Button>
-            </Form>
+            <Form.Group controlId="formBasicSelect">
+              <Form.Label>Select Norm Type</Form.Label>
+              <Form.Control
+                as="select"
+                value={warehouseName}
+                onChange={e => {
+                  console.log("e.target.value", e.target.value);
+                  setwarehouseName(e.target.value);
+                }}
+              >
+                <option value="⬇️ Select a warehouse ⬇️"> -- Select a Warehouse -- </option>
+                {warehouseLists.map((warehouse) => <option value={warehouse.name}>{warehouse.name}</option>)}
 
-            </div>
-            </div>
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">{formErrors.warehouse}</Form.Control.Feedback>
+            </Form.Group>
 
-          {/* </div>
+            <br/>
+            <Button variant="success" type="submit">
+              Add
+            </Button>
+          </Form>
+
+        </div>
+      </div>
+
+      {/* </div>
         </div>
       </div> */}
     </>

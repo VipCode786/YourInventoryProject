@@ -42,9 +42,9 @@ function Sidebar() {
          </Link>  
         </ul>
         <ul>
-      
-            <li><LocalShippingRoundedIcon className="icon"/><span> Delivery</span></li>
-       
+        <Link to="/transfer"> 
+            <li><LocalShippingRoundedIcon className="icon"/><span> Transfer</span></li>
+        </Link>
         </ul>
         <ul>
             <li><QueryStatsRoundedIcon className="icon"/><span> Stats</span></li>

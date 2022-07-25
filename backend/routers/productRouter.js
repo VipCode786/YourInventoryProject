@@ -18,6 +18,7 @@ productRouter.get(
   })
 );
 
+
 productRouter.get(
   '/seed',
   expressAsyncHandler(async (req, res) => {
@@ -64,7 +65,7 @@ productRouter.post(
       brand: req.body.brand,
       description:req.body.description,
       countInStock: req.body.countInStock,
-
+      warehouse : req.body.warehouse
     });
     const createdProduct = await product.save();
     res.send({ message: 'Product Created', product: createdProduct });
@@ -95,7 +96,10 @@ productRouter.put(
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
     const product = await Product.findById(productId);
+    console.log(typeof product)
+    console.log(product)
     if (product) {
+      console.log("product11111111",product._id)
       product.name = req.body.name;
       product.price = req.body.price;
       //product.image = req.file.filename;
@@ -103,6 +107,7 @@ productRouter.put(
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;
       product.description = req.body.description;
+      product.warehouse = req.body.warehouse
       const updatedProduct = await product.save();
       res.send({ message: 'Product Updated', product: updatedProduct });
     } else {
