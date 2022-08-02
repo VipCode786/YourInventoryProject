@@ -48,10 +48,16 @@ export const signin = (email, password) => async (dispatch) => {
 };
 
 
-export const register = (user) => async (dispatch) => {
+export const register = (user) => async (dispatch,getState) => {
   dispatch({ type: USER_REGISTER_REQUEST });
   try {
-    const { data } = await Axios.post('/api/users/register', user);
+    const {
+      userSignin: { userInfoData },
+     } = getState();
+    const { data } = await Axios.post('/api/users/register', user,
+    {
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
+    });
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data.user});
    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
    localStorage.setItem('LogInInfo', JSON.stringify(data));

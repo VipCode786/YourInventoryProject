@@ -59,6 +59,7 @@ const NewProduct = () => {
       console.log(formErrors);
       e.stopPropagation();
     } else {
+
       dispatch(createProduct(formData));
       navigate('/');
     }
