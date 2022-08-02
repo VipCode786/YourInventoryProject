@@ -16,7 +16,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.MONGODB_URL , {
   useNewUrlParser: true,
@@ -29,13 +28,10 @@ mongoose.connect(process.env.MONGODB_URL , {
 app.use('/api/uploads', uploadRouter);
 app.use('/api/users', userRouter);
 app.use('/api/products', productRouter);
-//app.use('/api/orders', orderRouter);
 app.use('/api/warehouses', warehouseRouter);
 app.use('/api/transfer', transferRouter);
 app.use('/api/purchaseOrder', purchaseOrderRouter);
-// app.get('/api/config/paypal', (req, res) => {
-//   res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
-// });
+
 
 
 const __dirname = path.resolve();
@@ -51,9 +47,14 @@ app.use('/images', express.static( 'images'));
 
 
 
-app.get('/', (req, res) => {
-  res.send('Server is ready');
-});
+// app.get('/', (req, res) => {
+//   res.send('Server is ready');
+// });
+
+app.use(express.static(path.join(__dirname, '/frontend/build')));
+app.get('*', (req, res) =>
+  res.sendFile(path.join(__dirname, '/frontend/build/index.html'))
+);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

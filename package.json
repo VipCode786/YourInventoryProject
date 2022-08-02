@@ -5,6 +5,7 @@
   "description": "Ecommerce website like amazon",
   "main": "index.js",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
     "start": "nodemon --watch backend --exec node --experimental-modules backend/server.js"
   },
   "repository": {
@@ -32,5 +33,7 @@
     "eslint": "^7.9.0",
     "eslint-plugin-react": "^7.21.2",
     "nodemon": "^2.0.4"
-  }
+  },
+  "engines": {"node":"16.15.1", "npm": "8.11.0"}
+
 }
