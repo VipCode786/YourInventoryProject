@@ -128,7 +128,7 @@ const PurchaseOrder = () => {
             <th>Price</th>
             <th>QTY</th>
             <th>Warehouse</th>
-            <th>ACTIONS</th>
+            
             
           </tr>
         </thead>
@@ -206,23 +206,23 @@ const PurchaseOrder = () => {
                 </select>
 
               </td> */}
-              <td className="cellAction">
-              <div>
+              {/* <td className="cellAction">
+              
                   <button type="button" className="viewButton"
                   onClick={() =>
                     navigate(`/products/${product._id}`)
                   }>
                   Edit
                 </button>
-              </div>
               
-              <div>
+              
+              
                 <button type="button" className="deleteButton" onClick={() => deleteHandler(product)} >
                   Delete
                 </button>
-              </div>
+              
                
-              </td>
+              </td> */}
             </tr>
           </tbody>
         ))}

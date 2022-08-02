@@ -22,8 +22,10 @@ function Navbar() {
     return (
       <div className="navbar">
         <div className="wrapper">
-            <div className="search">
-                <input type="text" placeholder="   Search....."/><ManageSearchRoundedIcon/>
+            <div >
+
+            <h1>  Inventory Management Model </h1>
+                {/* <input type="text" placeholder="   Search....."/><ManageSearchRoundedIcon/> */}
             </div>
             <div>
                 {

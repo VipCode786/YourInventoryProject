@@ -87,7 +87,7 @@ function Sidebar() {
             </ul>
             )}
 
-        <ul>
+        {/* <ul>
             <li><MonitorHeartRoundedIcon className="icon"/><span> SystemHealth</span></li>
         </ul>
         <ul>
@@ -102,9 +102,9 @@ function Sidebar() {
         <ul>
             <li><ExitToAppRoundedIcon className="icon"/><span>Logout</span></li>
         </ul> 
-             
+              */}
         </div>
-       <div className="bottom"> Color Options </div>
+      
       </div>
     );
   }

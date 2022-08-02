@@ -40,21 +40,21 @@ const data = {
 
   warehouses:[
     {
-      name: 'Basir1',
+      name: 'Warehouse1',
       email: 'admin1@example.com',
       address: 'Noida Sector 441',
       phone: '837347389',
       
     },
     {
-      name: 'John',
+      name: 'Warehouse1',
       email: 'user1@example.com',
       address: 'Noida Sector 62',
       phone: '83273447389',
       
     },
     {
-      name: 'Vipul',
+      name: 'Warehouse1',
       email: 'user2@example.com',
       address: 'Noida Sector 61',
       phone: '23332344343',

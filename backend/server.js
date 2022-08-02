@@ -18,11 +18,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || 'mongodb://localhost/amazona', {
+mongoose.connect(process.env.MONGODB_URL , {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
-});
+}).then(()=> console.log("MongoDb Connected ...........")).catch((error)=> console.error("MongoDB connection failed :", error.message));
 
 
 
