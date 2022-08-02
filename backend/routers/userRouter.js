@@ -19,6 +19,7 @@ userRouter.get(
 
 userRouter.get(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
@@ -27,6 +28,7 @@ userRouter.get(
 
 userRouter.post(
   '/signin',
+  
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -36,6 +38,11 @@ userRouter.post(
           name: user.name,
           email: user.email,
           isAdmin: user.isAdmin,
+          isProduct: user.isProduct,
+      isWarehouse: user.isWarehouse,
+      isTransfer: user.isTransfer,
+      isGeneratePurchaseOrder: user.isGeneratePurchaseOrder,
+      isListPurchaseOrder: user.isListPurchaseOrder,
           token: generateToken(user),
         });
         return;
@@ -47,13 +54,19 @@ userRouter.post(
 
 userRouter.post(
   '/register',
-
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       name: req.body.name,
       phone: req.body.phone,
       address: req.body.address,
       email: req.body.email,
+      isAdmin: req.body.isAdmin,
+      isProduct: req.body.isProduct,
+      isWarehouse: req.body.isWarehouse,
+      isTransfer: req.body.isTransfer,
+      isGeneratePurchaseOrder: req.body.isGeneratePurchaseOrder,
+      isListPurchaseOrder: req.body.isListPurchaseOrder,
       password: bcrypt.hashSync(req.body.password, 8),
     });
     const createdUser = await user.save();
@@ -64,6 +77,12 @@ userRouter.post(
       phone: createdUser.phone,
       email: createdUser.email,
       isAdmin: createdUser.isAdmin,
+      isProduct: createdUser.isProduct,
+      isTransfer: createdUser.isTransfer,
+      isTransfer: createdUser.isTransfer,
+      isGeneratePurchaseOrder: createdUser.isGeneratePurchaseOrder,
+      isListPurchaseOrder: createdUser.isListPurchaseOrder,
+      
       //token: generateToken(createdUser),
     });
   })
@@ -71,6 +90,7 @@ userRouter.post(
 
 userRouter.get(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -82,7 +102,7 @@ userRouter.get(
 );
 userRouter.put(
   '/:id',
-  //isAuth,
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const userID = req.params.id;
     const user = await User.findById(userID);
@@ -112,7 +132,7 @@ userRouter.put(
 
 userRouter.delete(
   '/:id',
-  // isAuth,
+  isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);

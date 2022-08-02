@@ -1,12 +1,15 @@
 import Axios from 'axios';
 import {
+
   USER_SIGNIN_FAIL,
   USER_SIGNIN_REQUEST,
   USER_SIGNIN_SUCCESS,
   USER_SIGNOUT,
+
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+
   USER_DETAILS_FAIL,
   USER_DETAILS_REQUEST,
   USER_DETAILS_SUCCESS,
@@ -32,7 +35,7 @@ export const signin = (email, password) => async (dispatch) => {
   try {
     const { data } = await Axios.post('/api/users/signin', { email, password });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-    //localStorage.setItem('LogInInfo', JSON.stringify(data));
+    localStorage.setItem('LogInInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_SIGNIN_FAIL,
@@ -50,8 +53,8 @@ export const register = (user) => async (dispatch) => {
   try {
     const { data } = await Axios.post('/api/users/register', user);
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data.user});
-   // dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-    //.setItem('userInfo', JSON.stringify(data));
+   dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+   localStorage.setItem('LogInInfo', JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -64,22 +67,20 @@ export const register = (user) => async (dispatch) => {
 };
 
 export const signout = () => (dispatch) => {
-  localStorage.removeItem('userInfo');
-  localStorage.removeItem('cartItems');
-  localStorage.removeItem('shippingAddress');
+  localStorage.removeItem('LogInInfo');
   dispatch({ type: USER_SIGNOUT });
-  document.location.href = '/signin';
+  document.location.href = '/logIn';
 
 };
 
 export const detailsUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DETAILS_REQUEST, payload: userId });
   const {
-    userSignin: { userInfo },
+    userSignin: { userInfoData },
   } = getState();
   try {
     const { data } = await Axios.get(`/api/users/${userId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
     });
     dispatch({ type: USER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -93,19 +94,19 @@ export const detailsUser = (userId) => async (dispatch, getState) => {
 
 export const updateUserProfile = (id, user) => async (dispatch, getState) => {
   dispatch({ type: USER_UPDATE_PROFILE_REQUEST, payload: user });
-  // const {
-  //   userSignin: { userInfo },
-  // } = getState();
+  const {
+    userSignin: { userInfoData },
+  } = getState();
   try {
     const { data } = await Axios.put(`/api/users/${id}`, 
     user, 
-    //{
-    //   headers: { Authorization: `Bearer ${userInfo.token}` },
-    // }
+    {
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
+    }
     );
     dispatch({ type: USER_UPDATE_PROFILE_SUCCESS, payload: data });
-    //dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-   // localStorage.setItem('userInfo', JSON.stringify(data));
+    dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
+   localStorage.setItem('LogInInfo', JSON.stringify(data));
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -115,16 +116,16 @@ export const updateUserProfile = (id, user) => async (dispatch, getState) => {
   }
 };
 
-export const listUsers = () => async (dispatch) => {
+export const listUsers = () => async (dispatch,getState) => {
   dispatch({ type: USER_LIST_REQUEST });
   try {
-    // const {
-    //   userSignin: { userInfo },
-    // } = getState();
+    const {
+      userSignin: { userInfoData },
+    } = getState();
     const { data } = await Axios.get('/api/users', {
-      // headers: {
-      //   Authorization: `Bearer ${userInfo.token}`,
-      // },
+      headers: {
+        Authorization: `Bearer ${userInfoData.token}`,
+      },
     });
     dispatch({ type: USER_LIST_SUCCESS, payload: data });
   } catch (error) {
@@ -138,14 +139,14 @@ export const listUsers = () => async (dispatch) => {
 
 export const deleteUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DELETE_REQUEST, payload: userId });
-  // const {
-  //   userSignin: { userInfo },
-  // } = getState();
+  const {
+    userSignin: { userInfoData },
+  } = getState();
   try {
     const { data } = Axios.delete(`/api/users/${userId}`,
-  //  {
-  //     headers: { Authorization: `Bearer ${userInfo.token}` },
-  //   }
+   {
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
+    }
     );
     dispatch({ type: USER_DELETE_SUCCESS , payload: data});
   } catch (error) {

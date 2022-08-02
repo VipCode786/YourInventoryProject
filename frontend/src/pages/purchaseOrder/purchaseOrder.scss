@@ -1,4 +1,14 @@
-.datatable {
+.list {
+    display: flex;
+    width: 100%;
+    .listContainer {
+      flex: 6;
+    }
+
+   
+  }
+
+  .datatable {
     height: 600px;
     padding: 10px;
     
@@ -23,38 +33,7 @@
       }
     }
 
-    table {
-      font-family: arial, sans-serif;
-      border-collapse: collapse;
-      width: 100%;
-      
-    }
-
-    th{
-      background-color: #6439ff;
-      color: #ffffff;
-    }
     
-    td, th {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-    }
-   
-  
-    .cellWithImg {
-      display: flex;
-      align-items: center;
-  
-      .cellImg {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        object-fit: cover;
-        margin-right: 20px;
-      }
-    }
-  
     .cellWithStatus {
       padding: 5px;
       border-radius: 5px;
@@ -75,8 +54,11 @@
   
     .cellAction {
       display: flex;
+      flex-direction: row;
       align-items: center;
+      margin:0;
       gap: 15px;
+      
   
       .viewButton {
         padding: 2px 5px;
@@ -92,6 +74,51 @@
         color: crimson;
         border: 1px dotted rgba(220, 20, 60, 0.6);
         cursor: pointer;
+        
       }
     }
   }
+
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    
+  }
+
+  th{
+    background-color: #6439ff;
+    color: #ffffff;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+ 
+
+  .cellWithImg {
+    display: flex;
+    align-items: center;
+
+    .cellImg {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 20px;
+    }
+
+    
+  }
+
+  .infoTable{
+   
+    display: flex;
+    justify-content: space-between;
+
+}
+
+
+  

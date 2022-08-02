@@ -20,6 +20,7 @@ warehouseRouter.get(
 
 warehouseRouter.get(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const warehouses = await Warehouse.find({});
     res.send(warehouses);
@@ -30,7 +31,7 @@ warehouseRouter.get(
 
 warehouseRouter.post(
   '/add',
-
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const warehouse = new Warehouse({
       name: req.body.name,
@@ -54,6 +55,7 @@ warehouseRouter.post(
 
 warehouseRouter.get(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const warehouse = await Warehouse.findById(req.params.id);
     if (warehouse) {
@@ -65,7 +67,7 @@ warehouseRouter.get(
 );
 warehouseRouter.put(
   '/:id',
-  //isAuth,
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const warehouseID = req.params.id;
     const warehouse = await Warehouse.findById(warehouseID);
@@ -95,7 +97,7 @@ warehouseRouter.put(
 
 warehouseRouter.delete(
   '/:id',
-  // isAuth,
+   isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const warehouse = await Warehouse.findById(req.params.id);

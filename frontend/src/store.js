@@ -7,17 +7,21 @@ import { userRegisterReducer,
    userUpdateProfileReducer ,
    userListReducer,
    userDeleteReducer,
-   
-
  } from '../src/reducers/userReducers';
 
  import {
   warehouseListReducer,
   warehouseCreateReducer,
   warehouseDeleteReducer,
-  warehouseUpdateReducer
- } from '../src/reducers/warehouseListReducer'
-import { transferReducer } from "./reducers/transferReducer";
+  warehouseUpdateReducer,
+ } from '../src/reducers/warehouseListReducer';
+
+import { transferReducer } from "../src/reducers/transferReducer";
+
+import { purchaseOrderReducer , 
+         purchaseOrderListReducer,
+         purchaseDetailsReducer
+} from "../src/reducers/purchaseOrderReducer";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -32,9 +36,18 @@ const rootReducer = combineReducers({
   warehouseDelete: warehouseDeleteReducer,
   warehouseUpdate: warehouseUpdateReducer,
   transfer : transferReducer,
+  purchaseOrder : purchaseOrderReducer,
+  purchaseOrderList : purchaseOrderListReducer,
+  purchaseDetails : purchaseDetailsReducer
 });
 
-const intialState = {};
+const intialState = {
+
+  userSignin:{
+    userInfoData: localStorage.getItem('LogInInfo')? JSON.parse(localStorage.getItem('LogInInfo')):null
+  },
+
+};
 
 const middleware = [thunk];
 

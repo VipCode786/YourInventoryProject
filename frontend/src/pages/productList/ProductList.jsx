@@ -10,13 +10,17 @@ import ProductTable from "../../components/ProductTable/ProductTable";
 
 const ProductList = () => {
 
-   const dispatch = useDispatch();
+  const [searchTerm, setsearchTerm] = useState("")
+  const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { loading, productLists, error } = productList;
   useEffect(() => {
     dispatch(productListAction());
   }, [dispatch]);
 
+ 
+
+    
   return (
     <div className="list">
       <Sidebar />
@@ -30,9 +34,12 @@ const ProductList = () => {
             <h2>{error}</h2>
           ) : (
 
-            (
+            
+              
+             
               <ProductTable  productLists={productLists} />
-            )
+              
+            
             // <div>
             //  {
             //   productLists.map((productLists) => (

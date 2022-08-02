@@ -6,13 +6,18 @@ import { PRODUCT_TRANSFER_FAIL, PRODUCT_TRANSFER_REQUEST, PRODUCT_TRANSFER_SUCCE
 
 
 
-export const transferAction = (product) => async (dispatch) => {
+export const transferAction = (product) => async (dispatch,getState) => {
     try {
      
       dispatch({ type: PRODUCT_TRANSFER_REQUEST });
+      const {
+        userSignin: { userInfoData },
+       } = getState();
       const { data } = await axios.post(
         '/api/transfer',
-        product,
+        product,{
+          headers: { Authorization: `Bearer ${userInfoData.token}` },
+        }
       );
 
       

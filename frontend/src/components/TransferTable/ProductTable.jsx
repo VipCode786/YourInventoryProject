@@ -1,6 +1,6 @@
 //TransferTable
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import './productTable.scss'
 import Table from 'react-bootstrap/Table';
 import { Link, useNavigate } from "react-router-dom";
@@ -10,11 +10,25 @@ import { Button } from "react-bootstrap";
 import TransferTable from "./TransferTable";
 import { warehouseListAction } from "../../actions/warehouseAction";
 //import { warehouseListAction } from "../../actions/warehouseAction";
+import Pagination from '../Pagination/Pagination';
+
+let PageSize = 10;
+
+
 
 const ProductTable = ({ productLists }) => {
 
   const navigate = useNavigate();
   const [searchTerm, setsearchTerm] = useState("")
+
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  //const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+  //   return productLists.slice(firstPageIndex, lastPageIndex);
+  // }, [currentPage]);
   // //Using state to keep track of what the selected fruit is
   // let [warehouseName, setwarehouseName] = useState("⬇️ Select a fruit ⬇️")
   //const [productsInfo, setproductsInfo] = useState([]);
@@ -162,7 +176,7 @@ const ProductTable = ({ productLists }) => {
               }
 
               })
-              .map((product) => (
+              .slice(firstPageIndex, lastPageIndex).map((product) => (
           <tbody >
            
             <tr>
@@ -224,6 +238,15 @@ const ProductTable = ({ productLists }) => {
           </tbody>
         ))}
       </table>
+
+      <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={productLists.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
+
     </div>
   );
 };

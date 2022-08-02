@@ -9,6 +9,11 @@ const data = {
       phone: '837347389',
       password: bcrypt.hashSync('1234', 8),
       isAdmin: true,
+      isProduct:true,
+      isWarehouse: true,
+      isTransfer:true,
+      isGeneratePurchaseOrder: true,
+      isListPurchaseOrder:true,
     },
     {
       name: 'John',
@@ -17,6 +22,11 @@ const data = {
       phone: '8327347389',
       password: bcrypt.hashSync('1234', 8),
       isAdmin: false,
+      isProduct:true,
+      isWarehouse: false,
+      isTransfer:true,
+      isGeneratePurchaseOrder: false,
+      isListPurchaseOrder:true,
     },
     {
       name: 'Vipul',

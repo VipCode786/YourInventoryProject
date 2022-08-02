@@ -12,6 +12,7 @@ const productRouter = express.Router();
 
 productRouter.get(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});
     res.send(products);
@@ -19,17 +20,19 @@ productRouter.get(
 );
 
 
-productRouter.get(
-  '/seed',
-  expressAsyncHandler(async (req, res) => {
-    // await Product.remove({});
-    const createdProducts = await Product.insertMany(data.products);
-    res.send({ createdProducts });
-  })
-);
+// productRouter.get(
+//   '/seed',
+ 
+//   expressAsyncHandler(async (req, res) => {
+//     // await Product.remove({});
+//     const createdProducts = await Product.insertMany(data.products);
+//     res.send({ createdProducts });
+//   })
+// );
 
 productRouter.get(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -55,7 +58,7 @@ let upload = multer({ storage: storage });
 
 
 productRouter.post(
-  '/',upload.single('image'),
+  '/',isAuth,upload.single('image'),
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
       name: req.body.name,
@@ -91,7 +94,7 @@ productRouter.post(
 // );
 productRouter.put(
   '/:id',upload.single('image'),
-  // isAuth,
+   isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const productId = req.params.id;
@@ -118,7 +121,7 @@ productRouter.put(
 
 productRouter.delete(
   '/:id',
-  // isAuth,
+   isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);

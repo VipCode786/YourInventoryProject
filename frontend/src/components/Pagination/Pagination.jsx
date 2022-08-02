@@ -1,27 +1,81 @@
-import React from 'react'
-import './pagination.scss'
-const Pagination = ({ employeesPerPage, totalEmployees, paginate, totalEmpThisPage, currentPage }) => {
-  const pageNumbers = [];
+import React from 'react';
+import classnames from 'classnames';
+import { usePagination, DOTS } from './usePagiunation';
+import './pagination.scss';
+const Pagination = props => {
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+    className
+  } = props;
 
-  for (let i = 1; i <= Math.ceil(totalEmployees / employeesPerPage); i++) {
-    pageNumbers.push(i);
+  const paginationRange = usePagination({
+    currentPage,
+    totalCount,
+    siblingCount,
+    pageSize
+  });
+
+  // If there are less than 2 times in pagination range we shall not render the component
+  if (currentPage === 0 || paginationRange.length < 2) {
+    return null;
   }
 
-  const prevPage = () => paginate(currentPage === 1 ? 1 : currentPage - 1);
-  const nextPage = () => paginate(currentPage === pageNumbers.length ? pageNumbers.length : currentPage + 1);
-  
+  const onNext = () => {
+    onPageChange(currentPage + 1);
+  };
+
+  const onPrevious = () => {
+    onPageChange(currentPage - 1);
+  };
+
+  let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <div className="clearfix">
-      <div className="hint-text">Showing <b>{totalEmpThisPage}</b> out of <b>{totalEmployees}</b> entries</div>
-      <ul className="pagination">
-        <li className="page-item"><a onClick={() => prevPage()} href="!#">Previous</a></li>
-        {pageNumbers.map(number => (
-          <li className={number === currentPage ? 'page-item active' : 'page-item'} key={number}><a onClick={() => paginate(number)} href="#" className="page-link">{number}</a></li>
-        ))}        
-        <li className="page-item"><a onClick={() => nextPage()} href="!#" className="page-link">Next</a></li>
-      </ul>
-    </div>
-  )
-}
+    <ul
+      className={classnames('pagination-container', { [className]: className })}
+    >
+       {/* Left navigation arrow */}
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === 1
+        })}
+        onClick={onPrevious}
+      >
+        <div className="arrow left" />
+      </li>
+      {paginationRange.map(pageNumber => {
+         
+        // If the pageItem is a DOT, render the DOTS unicode character
+        if (pageNumber === DOTS) {
+          return <li className="pagination-item dots">&#8230;</li>;
+        }
+		
+        // Render our Page Pills
+        return (
+          <li
+            className={classnames('pagination-item', {
+              selected: pageNumber === currentPage
+            })}
+            onClick={() => onPageChange(pageNumber)}
+          >
+            {pageNumber}
+          </li>
+        );
+      })}
+      {/*  Right Navigation arrow */}
+      <li
+        className={classnames('pagination-item', {
+          disabled: currentPage === lastPage
+        })}
+        onClick={onNext}
+      >
+        <div className="arrow right" />
+      </li>
+    </ul>
+  );
+};
 
 export default Pagination;

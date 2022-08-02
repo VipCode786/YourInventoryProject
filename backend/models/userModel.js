@@ -15,6 +15,11 @@ const userSchema = new mongoose.Schema(
     },
     password: { type: String , required: true,},
     isAdmin: { type: Boolean, default: false },
+    isProduct: { type: Boolean, default: false },
+    isWarehouse: { type: Boolean, default: false },
+    isTransfer: { type: Boolean, default: false },
+    isGeneratePurchaseOrder: { type: Boolean, default: false },
+    isListPurchaseOrder: { type: Boolean, default: false }
   },
 
   {

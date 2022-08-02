@@ -16,12 +16,17 @@ import { GET_PRODUCTLIST_FAIL,
          } from "../constants/productListConstants";
 
 
-export const productListAction = () => async (dispatch) => {
+export const productListAction = () => async (dispatch, getState) => {
   try {
-   
+    const {
+      userSignin: { userInfoData },
+     } = getState();
     dispatch({ type: GET_PRODUCTLIST_REQUEST });
     const { data } = await axios.get(
-      `/api/products`
+      `/api/products`,
+      {
+        headers: { Authorization: `Bearer ${userInfoData.token}` },
+      }
     );
 
     console.log(data);
@@ -37,18 +42,19 @@ export const productListAction = () => async (dispatch) => {
   }
 };
 
-export const createProduct = (product) => async (dispatch) => {
+export const createProduct = (product) => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_CREATE_REQUEST });
- // const {
-   // userSignin: { userInfo },
-  //} = getState();
+ 
   try {
+    const {
+      userSignin: { userInfoData },
+     } = getState();
     const { data } = await axios.post(
       '/api/products',
       product,
-      // {
-      //   headers: { Authorization: `Bearer ${userInfo.token}` },
-      // }
+      {
+        headers: { Authorization: `Bearer ${userInfoData.token}` },
+      }
     );
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
@@ -68,14 +74,14 @@ export const createProduct = (product) => async (dispatch) => {
 
 export const updateProduct = (id,product) => async (dispatch, getState) => {
   dispatch({ type: PRODUCT_UPDATE_REQUEST, payload: product });
-  // const {
-  //   userSignin: { userInfo },
-  // } = getState();
+  const {
+    userSignin: { userInfoData },
+  } = getState();
   try {
     const { data } = await axios.put(`/api/products/${id}`, product, 
-    // {
-    //   headers: { Authorization: `Bearer ${userInfo.token}` },
-    // }
+    {
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
+    }
     );
     dispatch({ type: PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {
@@ -89,14 +95,14 @@ export const updateProduct = (id,product) => async (dispatch, getState) => {
 
 export const deleteProduct = (productId) => async (dispatch, getState) => {
 dispatch({ type: PRODUCT_DELETE_REQUEST, payload: productId });
-// const {
-//   userSignin: { userInfo },
-// } = getState();
+const {
+  userSignin: { userInfoData },
+} = getState();
 try {
   const { data } = axios.delete(`/api/products/${productId}`,
-//  {
-//     headers: { Authorization: `Bearer ${userInfo.token}` },
-//   }
+ {
+    headers: { Authorization: `Bearer ${userInfoData.token}` },
+  }
   );
   dispatch({ type: PRODUCT_DELETE_SUCCESS , payload: data});
 } catch (error) {

@@ -6,14 +6,17 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import Navbar from '../../components/navbar/Navbar';
 
 import { createProduct, updateProduct } from '../../actions/productListAction';
+import { warehouseListAction } from '../../actions/warehouseAction';
 
 const ProductEdit = () => {
-    const {id} = useParams();
-    console.log('useparams', id)
+   const {id} = useParams();
+   console.log('useparams', id)
    const navigate = useNavigate();
    const dispatch = useDispatch();
    const userInfo= useSelector(state => state.productList.productLists)
-    console.log("userInfo", userInfo)
+   console.log("userInfo", userInfo)
+   const [warehouseName, setwarehouseName] = useState("⬇️ Select a warehouse ⬇️")
+
     //const employees = useSelector((userInfo => userInfo._id == productId) );
 
     const product = useSelector((user) => id ? userInfo.filter(userInfo => userInfo._id ===id) : null);
@@ -28,6 +31,19 @@ const ProductEdit = () => {
     if (product[0]) setproductData(product[0]);
   }, [product[0]])
 
+  const warehousedispatch = useDispatch();
+  const warehouseList = useSelector((state) => state.warehouseList);
+  const { loading, warehouseLists, error } = warehouseList;
+
+  useEffect(() => {
+    warehousedispatch(warehouseListAction());
+  }, [warehousedispatch]);
+
+
+  let handlewarehouse = (e) => {
+    setwarehouseName(e.target.value)
+  }
+
   const handleSubmit = (e) => {
      e.preventDefault();
     const formData = new FormData();
@@ -38,6 +54,7 @@ const ProductEdit = () => {
     formData.append('description', productData.description);
     formData.append('price', productData.price);
     formData.append('countInStock', productData.countInStock);
+    formData.append('warehouse', warehouseName);
 
      dispatch(updateProduct(id,formData));
      navigate('/');
@@ -112,13 +129,28 @@ const ProductEdit = () => {
 
               
               <Form.Group className="mb-3" controlId="formBasicQTY">
-                <Form.Label>Price</Form.Label>
+                <Form.Label>QTY</Form.Label>
                 <Form.Control type="text" required placeholder="Enter QTY " name="brand" value={productData.countInStock} onChange={(e) => setproductData({ ...productData, countInStock: e.target.value })} />
                 {/* <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback> */}
               </Form.Group>
 
               
-              
+              <Form.Group controlId="formBasicSelect">
+              <Form.Label>Select Warehouse</Form.Label>
+              <Form.Control
+                as="select"
+                value={warehouseName}
+                onChange={e => {
+                  console.log("e.target.value", e.target.value);
+                  setwarehouseName(e.target.value);
+                }}
+              >
+                <option value="⬇️ Select a warehouse ⬇️"> -- Select a Warehouse -- </option>
+                {warehouseLists.map((warehouse) => <option value={warehouse.name}>{warehouse.name}</option>)}
+
+              </Form.Control>
+              {/* <Form.Control.Feedback type="invalid">{formErrors.warehouse}</Form.Control.Feedback> */}
+            </Form.Group>
 
               <Button variant="success" type="submit">
                 Edit

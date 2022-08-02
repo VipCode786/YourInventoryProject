@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link , useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteUser } from '../../actions/userActions';
+import Pagination from '../Pagination/Pagination';
+
+let PageSize = 10;
 
 const UserTable = ({userLists}) => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return userLists.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage]);
 
 
   const deleteHandler = (user) => {
@@ -42,7 +52,7 @@ const UserTable = ({userLists}) => {
           </tr>
         </tbody> */}
       
-       {userLists.map((user) => (
+       {currentTableData.map((user) => (
         <tbody >
           <tr >
             
@@ -69,6 +79,13 @@ const UserTable = ({userLists}) => {
         </tbody>
       ))}
     </table>
+    <Pagination
+        className="pagination-bar"
+        currentPage={currentPage}
+        totalCount={userLists.length}
+        pageSize={PageSize}
+        onPageChange={page => setCurrentPage(page)}
+      />
   </div>
   )
 }

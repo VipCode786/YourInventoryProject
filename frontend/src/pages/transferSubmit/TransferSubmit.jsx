@@ -42,9 +42,9 @@ const TransferSubmit = () => {
     warehousedispatch(warehouseListAction());
   }, [warehousedispatch]);
 
-  const handleSourcewarehouse = (e) => {
-    setwarehouseName(e.target.value)
-  }
+  // const handleSourcewarehouse = (e) => {
+  //   setwarehouseName(e.target.value)
+  // }
 
 
   const handleSubmit = (e) => {
@@ -80,10 +80,23 @@ const TransferSubmit = () => {
 
     productData.SourceWarehouse= productData.warehouse ;
     console.log("productData.SourceWarehouse++++++++++++++++++++++++++++",productData.SourceWarehouse)
-
-    dispatch(transferAction(productData));
-    navigate('/');
+    
+    if(productData.DestinationWarehouse==productData.SourceWarehouse)
+    {
+      window.alert("Choose different destination location")
+    }
+    else{
+    dispatch(transferAction(productData))
+    window.alert("Succesfully Submitted")
+  //   <Popup trigger={<button> Trigger</button>} position="right center">
+  //   <div>Popup content here !!</div>
+  // </Popup>
+  navigate('/transfer');
+    }
+    
   }
+
+
 
   
   
@@ -106,6 +119,12 @@ const TransferSubmit = () => {
                 </div>
               </div>
             </div> */}
+
+            {loading ? (
+            <h2>Loading ....</h2>
+          ) : error ? (
+            <h2>{error}</h2>
+          ) : (
            <Form onSubmit={handleSubmit} encType="multipart/form-data" >
               <Form.Group className="mb-3" controlId="formBasicName" onSubmit={handleSubmit}>
                 <Form.Label>Name</Form.Label>
@@ -168,26 +187,14 @@ const TransferSubmit = () => {
                 value={productData.DestinationWarehouse}
                 onChange={(e) => setproductData({ ...productData, DestinationWarehouse: e.target.value })}
               >
-                <option value="⬇️ Select a warehouse ⬇️"> -- Select a Warehouse -- </option>
+                 {/* <option value=""> -- Select a Warehouse -- </option>  */}
+                
                 {warehouseLists.map((warehouse) => (
-                
-                <>
-                console
-                if( {warehouse.name} != {productData.warehouse})
-                
-                {
                 <option value={warehouse.name}>
                 {warehouse.name }
                 </option>
-                } 
-                
-                  
-                </>
-                  )
-                  
-                  
-                  
-                  )} 
+                )
+                )} 
 
               </Form.Control>
               {/* <Form.Control.Feedback type="invalid">{formErrors.warehouse}</Form.Control.Feedback> */}
@@ -206,7 +213,7 @@ const TransferSubmit = () => {
                 Transfer
               </Button>
             </Form>
-
+          )}
             </div>
             </div> 
 

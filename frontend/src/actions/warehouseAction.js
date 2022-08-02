@@ -16,12 +16,17 @@ import { GET_WAREHOUSELIST_FAIL,
          } from "../constants/wareHouseConstant";
 
 
-export const warehouseListAction = () => async (dispatch) => {
+export const warehouseListAction = () => async (dispatch, getState) => {
   try {
-   
+    const {
+      userSignin: { userInfoData },
+     } = getState();
     dispatch({ type: GET_WAREHOUSELIST_REQUEST });
     const { data } = await axios.get(
-      `/api/warehouses`
+      `/api/warehouses`,
+      {
+        headers: { Authorization: `Bearer ${userInfoData.token}` },
+      }
     );
 
     console.log(data);
@@ -37,18 +42,18 @@ export const warehouseListAction = () => async (dispatch) => {
   }
 };
 
-export const addWarehouse = (warehouse) => async (dispatch) => {
+export const addWarehouse = (warehouse) => async (dispatch,getState) => {
   dispatch({ type: WAREHOUSE_CREATE_REQUEST });
- // const {
-   // userSignin: { userInfo },
-  //} = getState();
+  const {
+    userSignin: { userInfoData },
+   } = getState();
   try {
     const { data } = await axios.post(
       '/api/warehouses/add',
       warehouse,
-      // {
-      //   headers: { Authorization: `Bearer ${userInfo.token}` },
-      // }
+      {
+        headers: { Authorization: `Bearer ${userInfoData.token}` },
+      }
     );
     dispatch({
       type: WAREHOUSE_CREATE_SUCCESS,
@@ -68,14 +73,14 @@ export const addWarehouse = (warehouse) => async (dispatch) => {
 
 export const updatedWarehouse = (id,product) => async (dispatch, getState) => {
   dispatch({ type: WAREHOUSE_UPDATE_REQUEST, payload: product });
-  // const {
-  //   userSignin: { userInfo },
-  // } = getState();
+  const {
+    userSignin: { userInfoData },
+   } = getState();
   try {
     const { data } = await axios.put(`/api/warehouses/${id}`, product, 
-    // {
-    //   headers: { Authorization: `Bearer ${userInfo.token}` },
-    // }
+    {
+      headers: { Authorization: `Bearer ${userInfoData.token}` },
+    }
     );
     dispatch({ type: WAREHOUSE_UPDATE_SUCCESS, payload: data });
   } catch (error) {
@@ -89,14 +94,14 @@ export const updatedWarehouse = (id,product) => async (dispatch, getState) => {
 
 export const deleteWarehouse = (warehouseId) => async (dispatch, getState) => {
 dispatch({ type: WAREHOUSE_DELETE_REQUEST, payload: warehouseId });
-// const {
-//   userSignin: { userInfo },
-// } = getState();
+const {
+  userSignin: { userInfoData },
+} = getState();
 try {
   const { data } = axios.delete(`/api/warehouses/${warehouseId}`,
-//  {
-//     headers: { Authorization: `Bearer ${userInfo.token}` },
-//   }
+ {
+    headers: { Authorization: `Bearer ${userInfoData.token}` },
+  }
   );
   dispatch({ type: WAREHOUSE_DELETE_SUCCESS , payload: data});
 } catch (error) {

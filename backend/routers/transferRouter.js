@@ -13,6 +13,7 @@ const transferRouter = express.Router();
 
 transferRouter.get(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});
     res.send(products);
@@ -32,6 +33,7 @@ transferRouter.get(
 
 transferRouter.get(
     '/product',
+    isAuth,
      expressAsyncHandler(async (req, res) => {
        const productName = req.body.name
        const warehouseName = req.body.warehouse
@@ -44,6 +46,7 @@ transferRouter.get(
 
 transferRouter.get(
   '/:id',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -58,6 +61,7 @@ transferRouter.get(
 
 transferRouter.post(
   '/',
+  isAuth,
   expressAsyncHandler(async (req, res) => {
 
     let createdProduct 
@@ -184,7 +188,7 @@ transferRouter.post(
 // );
 transferRouter.post(
   '/:id',
-  // isAuth,
+   isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
 

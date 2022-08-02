@@ -20,8 +20,25 @@ import WarehouseEdit from "./pages/warehouseEdit/WarehouseEdit";
 import TransferProduct from "./pages/transferProduct/TransferProduct";
 import TransferTable from "./components/TransferTable/TransferTable";
 import TransferSubmit from "./pages/transferSubmit/TransferSubmit";
-
+import PurchaseOrder from "./pages/purchaseOrder/PurchaseOrder";
+import { useEffect } from "react";
+import PurchaseOrderConfirmation from "./pages/purchaseOrder/PurchaseOrderConfirmation";
+import PurchaseOrderList from "./pages/purchaseOrder/PurchaseOrderList";
+import PurchaseOrderDetails from "./pages/purchaseOrder/PurchaseOrderDetails";
+import MaterialUIpurchaseOrder from "./pages/purchaseOrder/MaterialUIpurchaseOrder";
 function App() {
+
+  useEffect(() => {
+    const beforeunloadHandle = () => {
+      return true;
+    };
+  
+    window.addEventListener("beforeunload", beforeunloadHandle);
+    return () => {
+      window.removeEventListener("removeEventListener", beforeunloadHandle);
+    };
+  }, []);
+
   return (
     <div className="App">
       
@@ -32,10 +49,9 @@ function App() {
      <BrowserRouter>
     <Routes>
       <Route path="/">
-      <Route index element={<Home/>}/>
-        {/* <Route index element={<LogInUser/>}/>
-         <Route path="home" element={<Home/>}/>
-          */}
+       <Route index element={<Home/>}/>
+         <Route path="logIn" element={<LogInUser/>}/>
+         {/*  <Route path="home" element={<Home/>}/>   */}
         <Route path="users">
           <Route index element={<UserList/>}/>
           <Route path="register" element={<NewUser/>}/>
@@ -55,6 +71,12 @@ function App() {
           <Route index element={<TransferProduct/>}/>
           <Route path="transferSubmit/:id" element={<TransferSubmit/>}/>
           <Route path="transferProduct" element={<TransferTable/>}/>        
+        </Route>
+        <Route path="purchaseOrder">
+          <Route index element={<PurchaseOrder/>}/>
+           <Route path="purchaseOrderConfirmation" element={<PurchaseOrderConfirmation/>}/>
+           <Route path="purchaseOrderList" element={<PurchaseOrderList/>}/>       
+           <Route path=":id" element={<PurchaseOrderDetails/>}/> 
         </Route>
       </Route>
     </Routes>

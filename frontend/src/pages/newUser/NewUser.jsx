@@ -6,17 +6,21 @@ import Form from 'react-bootstrap/Form';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../../actions/userActions';
+import { Col, Row } from 'react-bootstrap';
 //import { createEmployee, getEmployees } from '../../actions/employeeAction';
 
   const NewUser = () => {
-  const [userData, setuserData] = useState({ name: '', phone: '',email:'', address: '', password: ''});
+  const [userData, setuserData] = useState({ name: '', phone: '',email:'', address: '', password: '', 
+                                              isProduct: false, isWarehouse: false , isTransfer: false, isGeneratePurchaseOrder: false, isListPurchaseOrder: false});
   const [confirmPassword , setConfirmPassword] = useState('')
   const [formErrors, setFormErrors] = useState({});
   const dispatch = useDispatch();
+
+  console.log("isProduct",userData.isProduct)
  // const dispatchEmp = useDispatch();
  // const userLists = useSelector((state) => state)
- const userInfo= useSelector(state => state.userList.userLists)
-    console.log("userInfo", userInfo)
+  const userInfo= useSelector(state => state.userList.userLists)
+  //  console.log("userInfo", userInfo)
   const navigate = useNavigate();
   const [isSubmit, setIsSubmit] = useState(false);
   
@@ -37,7 +41,7 @@ import { register } from '../../actions/userActions';
     } else if(userData.password == confirmPassword)
       {
         dispatch(register(userData));
-        navigate('/home');
+        navigate('/');
       }
       else {
         alert('Passowrd Not matched')
@@ -163,12 +167,38 @@ import { register } from '../../actions/userActions';
                 <Form.Control.Feedback type="invalid">{formErrors.confirmPassword}</Form.Control.Feedback>
               </Form.Group>
 
-              {/* <Form.Group className="mb-3" controlId="formBasicDescription">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="text" required placeholder="Enter Password" name="password" value={userData.password} onChange={(e) => setuserData({ ...userData, description: e.target.value })} />
+              <Row className="mb-3">
+              <Form.Group as={Col} className="mb-3" controlId="formBasicIs Product Access" >
+                <Form.Label>Is Product Access</Form.Label>
+                <Form.Check type="checkbox"  name="Is Product Access" value={userData.isProduct} onChange={(e) => setuserData({ ...userData, isProduct: e.target.checked  })} />
                 <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
-              </Form.Group> */}
+              </Form.Group>
 
+              <Form.Group as={Col} className="mb-3" controlId="formBasicIs Warehouse Access" as={Col}>
+                <Form.Label>Is Warehouse Access</Form.Label>
+                <Form.Check type="checkbox"   name="Is Warehouse Access" value={userData.isWarehouse} onChange={(e) => setuserData({ ...userData, isWarehouse: e.target.checked  })} />
+                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+              </Form.Group>
+
+              
+              <Form.Group as={Col} className="mb-3" controlId="formBasicIs Transfer Access">
+                <Form.Label>Is Transfer Access</Form.Label>
+                <Form.Check type="checkbox"   name="Is Transfer Access" value={userData.isTransfer} onChange={(e) => setuserData({ ...userData, isTransfer: e.target.checked  })} />
+                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} className="mb-3" controlId="formBasicIs Generate Purchase Order Access">
+                <Form.Label>Is Generate Purchase Order Access</Form.Label>
+                <Form.Check type="checkbox"   name="Is Generate Purchase Order Access" value={userData.isGeneratePurchaseOrder} onChange={(e) => setuserData({ ...userData, isGeneratePurchaseOrder: e.target.checked  })} />
+                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group as={Col} className="mb-3" controlId="formBasicIs List Purchase Order Access">
+                <Form.Label>Is List Purchase Order Access</Form.Label>
+                <Form.Check type="checkbox"   name="Is List Purchase Order Access" value={userData.isListPurchaseOrder} onChange={(e) => setuserData({ ...userData, isListPurchaseOrder: e.target.checked  })} />
+                <Form.Control.Feedback type="invalid">{formErrors.brand}</Form.Control.Feedback>
+              </Form.Group>
+              </Row>
               {/* <Form.Group className="mb-3" controlId="formBasicPrice">
                 <Form.Label>Price</Form.Label>
                 <Form.Control type="text" required placeholder="Enter Price " name="price" value={userData.price} onChange={(e) => setuserData({ ...userData, price: e.target.value })} />

@@ -30,7 +30,7 @@ const LogInUser = () => {
 
   useEffect(()=>{
     if(userInfoData){
-       navigate('/home');
+       navigate('/');
     }
 },[userInfoData]);
 
