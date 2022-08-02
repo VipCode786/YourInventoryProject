@@ -5,13 +5,13 @@ node_modules
 /frontend/node_modules
 /.pnp
 .pnp.js
-
+/frontend/package-lock.json
 # testing
 /coverage
 
 # production
 build
-
+package-lock.json
 # misc
 .DS_Store
 .env.local
