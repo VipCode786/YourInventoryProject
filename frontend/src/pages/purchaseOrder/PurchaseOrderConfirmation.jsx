@@ -67,6 +67,16 @@ const PurchaseOrderConfirmation = () => {
     $(this).closest('tr').find('input[type="number"], select').prop("disabled", chx);
   });
 
+
+  $(":checkbox").on("click", function () {
+    var v = $(this).closest("tr").find("input[name='rank'],select").val();
+    setPurchaseQTY(v)
+ });
+
+//   $(".add").on("click", function () {
+//     var v = $(this).closest("tr").find("input[name='rank']").val();
+//     alert(v);
+//  });
   // $('input[type="number"]').on('change',function(){
   //   $(this).closest('tr').find('input[type="checkbox"]').attr( 'checked', 'checked' );
 
@@ -177,7 +187,7 @@ const PurchaseOrderConfirmation = () => {
                 type="number"
                 id="EnterQTY"
                 required 
-                
+                name='rank'
                 
                 onBlur={(e) => ((setPurchaseQTY(e.target.value)))}
 
@@ -199,7 +209,7 @@ const PurchaseOrderConfirmation = () => {
 
                       
 <input
-  onChange={(e) => {
+ onChange={(e) => {
     
        // add to list
     if (e.target.checked) {
@@ -233,6 +243,7 @@ const PurchaseOrderConfirmation = () => {
   style={{ margin: '20px' }}
   type="checkbox"
   id=":checkbox"
+  className="add"
  
 />            
               
