@@ -156,6 +156,7 @@ const PurchaseOrder = () => {
            
             <tr key={product._id}>
               <td>
+               
             <input
   onChange={(e) => {
     // add to list
@@ -180,6 +181,8 @@ const PurchaseOrder = () => {
       );
     }
   }}
+  
+    
   value={peopleInfo}
   style={{ margin: '20px' }}
   type="checkbox"

@@ -26,6 +26,8 @@ import PurchaseOrderConfirmation from "./pages/purchaseOrder/PurchaseOrderConfir
 import PurchaseOrderList from "./pages/purchaseOrder/PurchaseOrderList";
 import PurchaseOrderDetails from "./pages/purchaseOrder/PurchaseOrderDetails";
 import MaterialUIpurchaseOrder from "./pages/purchaseOrder/MaterialUIpurchaseOrder";
+
+
 function App() {
 
   useEffect(() => {
@@ -45,8 +47,9 @@ function App() {
 
      
    
-
+      
      <BrowserRouter>
+     
     <Routes>
       <Route path="/">
        <Route index element={<Home/>}/>
@@ -81,6 +84,8 @@ function App() {
       </Route>
     </Routes>
   </BrowserRouter> 
+
+  {/* <ToastContainer autoClose={5000}/>  */}
     </div>
  
   );

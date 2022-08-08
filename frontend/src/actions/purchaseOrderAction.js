@@ -1,4 +1,6 @@
 import axios from "axios";
+
+
 import { 
     PURCHASE_ORDER_CREATE_REQUEST,
     PURCHASE_ORDER_CREATE_SUCCESS,
@@ -25,12 +27,14 @@ import {
           });
           dispatch({type: GET_PURCHASE_ORDER_DETAIL_SUCCESS, payload: data});
       } catch(error){
+       
           dispatch({type:GET_PURCHASE_ORDER_DETAIL_FAIL, 
              payload:
              error.response && error.response.data.message
              ? error.response.data.message
              :error.message,
          });
+         
       }
  };
 
@@ -52,13 +56,17 @@ export const createPurchaseOrder = (purchaseInfo) => async (dispatch,getState) =
       dispatch({
         type: PURCHASE_ORDER_CREATE_SUCCESS,
         payload: data.purchaseInfo,
+        
       });
+      
     } catch (error) {
       const message =
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message;
+          
       dispatch({ type: PURCHASE_ORDER_CREATE_FAIL, payload: message });
+      
     }
   };
 

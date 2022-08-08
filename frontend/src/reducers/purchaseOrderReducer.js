@@ -2,7 +2,8 @@ import {
     PURCHASE_ORDER_CREATE_REQUEST,
     PURCHASE_ORDER_CREATE_SUCCESS,
     PURCHASE_ORDER_CREATE_FAIL,
-
+    PURCHASE_ORDER_CREATE_RESET,
+    
     GET_PURCHASE_ORDER_REQUEST,
     GET_PURCHASE_ORDER_SUCCESS,
     GET_PURCHASE_ORDER_FAIL,
@@ -32,9 +33,11 @@ import {
       case PURCHASE_ORDER_CREATE_REQUEST:
         return { loading: true };
       case PURCHASE_ORDER_CREATE_SUCCESS:
-        return { loading: false, success: true, product: action.payload };
+        return { loading: false, success: true, purchaseProducts: action.payload };
       case PURCHASE_ORDER_CREATE_FAIL:
         return { loading: false, error: action.payload };
+      case PURCHASE_ORDER_CREATE_RESET:
+        return {};
       default:
         return state;
     }

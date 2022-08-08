@@ -12,8 +12,11 @@ import Navbar from "../../components/navbar/Navbar";
 //import { warehouseListAction } from "../../actions/warehouseAction";
 import $ from 'jquery'
 import { createPurchaseOrder } from "../../actions/purchaseOrderAction";
-let PageSize = 10;
+import { PURCHASE_ORDER_CREATE_RESET } from "../../constants/purchaseOrderConstants";
+import toast, { Toaster } from 'react-hot-toast';
 
+
+let PageSize = 10;
 const PurchaseOrderConfirmation = () => {
 
   // //Using state to keep track of what the selected fruit is
@@ -32,7 +35,7 @@ const PurchaseOrderConfirmation = () => {
   const dispatch = useDispatch();
   const submitDispatch = useDispatch();
   const purchaseOrder = useSelector((state) => state.purchaseOrder);
-  const { loading,  error } = purchaseOrder;
+  const { loading, success, purchaseProducts, error } = purchaseOrder;
 
   let inputRef = useRef(null)
 
@@ -83,18 +86,36 @@ const PurchaseOrderConfirmation = () => {
   //   });
 
 
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      store.dispatch({ type: "CHANGE_INPUT", val: purchaseQTY });
-    }, 2000 )})
+  // useEffect(() => {
+  //   const timeout = setTimeout(() => {
+  //     store.dispatch({ type: "CHANGE_INPUT", val: purchaseQTY });
+  //   }, 2000 )})
 
-  console.log("closet",)
+  console.log("closet",error)
     
   const handleSubmit=(purchaseInfo)=>{
-    
-    submitDispatch(createPurchaseOrder(purchaseInfo));
-    navigate('/')
+    if(purchaseInfo.length > 0)
+    {
+      submitDispatch(createPurchaseOrder(purchaseInfo));
+    }
   }
+
+  
+  useEffect(() => {
+    if (success) { 
+      
+      
+      dispatch({ type: PURCHASE_ORDER_CREATE_RESET });
+      navigate("/")
+      
+    }
+ if(error){
+  return toast.error("Something went wrong",{
+    
+  })
+ }
+  }, [dispatch, purchaseProducts ,navigate, success,error]);
+  
 
   return (
 
@@ -108,11 +129,19 @@ const PurchaseOrderConfirmation = () => {
         <Navbar />
         {/* <Table/> */}
         <div>
-          {loading ? (
+          {loading ? 
+          (
             <h2>Loading ....</h2>
-          ) :  ( 
+          ) 
+          // :error ? (
+          //   <>
+          //   <h2>{"Something went wrong"}</h2>
+          //   {window.location.reload()}
+          //   </>
+          // )
+          :
+           ( 
             <>
-   <h2>{error}</h2>
     <div className="datatable">
       <div className="datatableTitle">
         Add New Product
@@ -139,7 +168,7 @@ const PurchaseOrderConfirmation = () => {
             <th>Quantity In Stock</th>
             <th>Warehouse</th>
             <th>Enter Quantity</th>
-            <th>Total Price</th>
+            
           </tr>
         </thead>
 
@@ -186,7 +215,7 @@ const PurchaseOrderConfirmation = () => {
               <input
                 type="number"
                 id="EnterQTY"
-                required 
+                required={true}
                 name='rank'
                 
                 onBlur={(e) => ((setPurchaseQTY(e.target.value)))}
@@ -330,6 +359,8 @@ const PurchaseOrderConfirmation = () => {
                   Submit
                 </button>
                 </div>
+                <Toaster position="top-center" reverseOrder={false}
+/>
               <div>
                 <p>Total Price: {  total}</p>
               </div>
@@ -360,6 +391,7 @@ const PurchaseOrderConfirmation = () => {
     </>
 
 )}
+
 </div>
 </div>
 </div>

@@ -11,7 +11,7 @@ purchaseOrderRouter.get(
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     // const orders = await Order.find({}).populate('user', 'name');
-    const orders = await PurchaseOrder.find({}).populate('user', 'name');
+    const orders = await PurchaseOrder.find({}).sort({updatedAt: -1});
     res.send(orders);
   })
 );
