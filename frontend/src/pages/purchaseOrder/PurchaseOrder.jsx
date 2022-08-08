@@ -10,7 +10,7 @@ import Navbar from "../../components/navbar/Navbar";
 //import { warehouseListAction } from "../../actions/warehouseAction";
 
 let PageSize = 10;
-let pro
+let  isChecked = false;
 const PurchaseOrder = () => {
 
   // //Using state to keep track of what the selected fruit is
@@ -18,7 +18,7 @@ const PurchaseOrder = () => {
   const [peopleInfo, setPeopleInfo] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setsearchTerm] = useState("");
-
+  const [idpro, setIdPro] = useState([])
  
 
 
@@ -39,7 +39,6 @@ const PurchaseOrder = () => {
   // return productLists.slice(firstPageIndex, lastPageIndex);
   // }, [currentPage]);
 
-  
   //const [peopleInfo, setPeopleInfo] = useState({});
 
   // const toggleHandler = (item) => () => {
@@ -57,9 +56,17 @@ const PurchaseOrder = () => {
   useMemo(() => peopleInfo, [peopleInfo])
 
 
+  const nameMemo = useMemo(()=>{
+    return productLists
+  },[productLists]);
+
    useEffect(() => {
     console.log(peopleInfo);
   }, [peopleInfo]);
+
+  useEffect(() => {
+    console.log(idpro);
+  }, [idpro]);
 
    const navigate = useNavigate();
    const deletedispatch = useDispatch();
@@ -174,19 +181,26 @@ const PurchaseOrder = () => {
           
         },
       ]);
+
+      setIdPro([...idpro,product._id])
     } else {
       // remove from list
       setPeopleInfo(
         peopleInfo.filter((people) => people.id !== product._id),
       );
+
+      setIdPro(idpro.filter((id123) => id123 !== product._id))
     }
   }}
   
-    
+  
+  checked={idpro.includes(product._id)} 
   value={peopleInfo}
   style={{ margin: '20px' }}
   type="checkbox"
-/>            </td>
+  
+/> {console.log("peopleInfo.id",peopleInfo.filter((v)=>{if(v.id.includes(product._id)){isChecked= true} else {isChecked=false}}))}   {console.log("product._id",product._id)} {console.log(peopleInfo.includes(product._id))}       </td>
+     {console.log("idpro",idpro.includes(product._id))}
               <td>
                 <div className="cellWithImg">
                   <div>  <img className="cellImg" src={`/images/${product.image}`} alt="avatar" /></div>
