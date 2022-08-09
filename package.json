@@ -2,7 +2,7 @@
   "name": "inventory",
   "type": "module",
   "version": "1.0.0",
-  "description": "Ecommerce website like amazon",
+  "description": "Ecommgit remote remove originerce website like amazon",
   "main": "index.js",
   "scripts": {
     "heroku-postbuild": "cd frontend && npm install --force && npm run build",
