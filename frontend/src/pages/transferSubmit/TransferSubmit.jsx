@@ -23,7 +23,7 @@ const TransferSubmit = () => {
  //  const employees = useSelector( user => (userInfo.filter(userInfo => userInfo._id === productId)));
     console.log('product', product);
  // const [employeeData, setEmployeeData] = useState({ name: '', email: '', address: '', phone: '' });
- const [productData, setproductData] = useState({ name: '', brand: '', category: '', description: '', price: '', countInStock: '',TransferQTY: '',SourceWarehouse:'',DestinationWarehouse:''});
+ const [productData, setproductData] = useState({ name: '',image:'', brand: '', category: '', description: '', price: '', countInStock: '',TransferQTY: '',SourceWarehouse:'',DestinationWarehouse:''});
  //const [TransferData, setTransferData] = useState({ TransferQTY: ''});
  const [warehouseName, setwarehouseName] = useState("");
 
@@ -125,6 +125,8 @@ const TransferSubmit = () => {
           ) : error ? (
             <h2>{error}</h2>
           ) : (
+<>
+
            <Form onSubmit={handleSubmit} encType="multipart/form-data" >
               <Form.Group className="mb-3" controlId="formBasicName" onSubmit={handleSubmit}>
                 <Form.Label>Name</Form.Label>
@@ -138,11 +140,14 @@ const TransferSubmit = () => {
                 <Form.Control.Feedback type="invalid">{formErrors.email}</Form.Control.Feedback>
               </Form.Group> */}
 
-           {/*<Form.Group className="mb-3" controlId="formBasicImage">
+
+              
+           <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Image</Form.Label>
-                <Form.Control type="file" required placeholder="Enter Image"  filename={productData.image} onChange={(e) =>  (console.log(e.target.files[0].name) , setproductData({ ...productData, image: e.target.files[0] , imageName:e.target.files[0].name}))} />
-               <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback> 
-              </Form.Group>   */}
+                <Form.Control type="text" required placeholder="Enter Image"  value={productData.image} onChange={(e) => setproductData({ ...productData, image: e.target.value})} readOnly />
+               {/* <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  */}
+              </Form.Group> 
+               
               <Form.Group className="mb-3" controlId="formBasicBrand">
                 <Form.Label>Brand</Form.Label>
                 <Form.Control type="text" required placeholder="Enter Brand" name="brand" value={productData.brand} onChange={(e) => setproductData({ ...productData, brand: e.target.value })} readOnly/>
@@ -213,6 +218,7 @@ const TransferSubmit = () => {
                 Transfer
               </Button>
             </Form>
+            </>
           )}
             </div>
             </div> 

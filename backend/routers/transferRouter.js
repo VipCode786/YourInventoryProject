@@ -119,7 +119,7 @@ transferRouter.post(
         console.log(product._id)
         product.name = req.body.name;
         product.price = req.body.price;
-        //product.image = req.file.filename;
+        
         product.category = req.body.category;
         product.brand = req.body.brand;
         product.countInStock = DestinationQTY;
@@ -137,6 +137,7 @@ transferRouter.post(
         const productsave = new Product({
             name: req.body.name,
             price: req.body.price,
+            image: req.body.image,
             category: req.body.category,
             brand: req.body.brand,
             description:req.body.description,

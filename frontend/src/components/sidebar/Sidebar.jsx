@@ -11,6 +11,7 @@ import PsychologyRoundedIcon from '@mui/icons-material/PsychologyRounded';
 import SettingsApplicationsRoundedIcon from '@mui/icons-material/SettingsApplicationsRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import ExitToAppRoundedIcon from '@mui/icons-material/ExitToAppRounded';
+import LoginRoundedIcon from '@mui/icons-material/LoginRounded';
 import {BrowserRouter as Router,Link, NavLink} from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -32,24 +33,33 @@ function Sidebar() {
     return (
       <div className="sidebar">
        <div className="top"> 
-            <span className="logo"> Admin </span>
+            <span className="logo"> Menu </span>
        </div>
        <hr/>
        <div className="center">
       { <ul>
-            <Link to= "/">
+            <Link to= "/" className="link">
             <li><GridViewRoundedIcon className="icon"/><span> DashBoard</span></li>
             </Link>
         </ul>
       }
+         {!userInfoData && <ul>
+            <Link to="/logIn" className="link"> 
+            <li><LoginRoundedIcon className="icon"/><span> Sign In</span></li>
+            </Link>
+            {/* <Link to= "/">
+            <li><GridViewRoundedIcon className="icon"/><span> DashBoard</span></li>
+            </Link> */}
+        </ul>
+      }
            {IsAdmin && ( <ul>
-            <Link to="/users">
+            <Link to="/users" className="link">
             <li><SupervisedUserCircleRoundedIcon className="icon"/><span> Users</span></li>
             </Link>
             </ul>)}
                 
             {IsProduct && ( <ul>
-            <Link to="/products">
+            <Link to="/products" className="link">
                 <li><Inventory2RoundedIcon className="icon"/><span> Products</span></li>
             </Link>
             </ul>
@@ -57,7 +67,7 @@ function Sidebar() {
 
              {IsWarehouse && (
             <ul>
-            <Link to="/warehouses"> 
+            <Link to="/warehouses" className="link"> 
                 <li><ProductionQuantityLimitsRoundedIcon className="icon"/><span> WareHouse</span></li>
             </Link>  
             </ul>
@@ -65,7 +75,7 @@ function Sidebar() {
 
             {IsTransfer && (
             <ul>
-            <Link to="/transfer"> 
+            <Link to="/transfer" className="link"> 
                 <li><LocalShippingRoundedIcon className="icon"/><span> Transfer</span></li>
             </Link>
             </ul>
@@ -73,7 +83,7 @@ function Sidebar() {
 
             {IsGeneratePurchaseOrder && (
             <ul>
-            <Link to="/purchaseOrder"> 
+            <Link to="/purchaseOrder" className="link"> 
                 <li><QueryStatsRoundedIcon className="icon"/><span>Generate Purchase Order </span></li>
             </Link>
             </ul>
@@ -81,7 +91,7 @@ function Sidebar() {
 
             {IsListPurchaseOrder && (
             <ul>
-            <Link to="/purchaseOrder/purchaseOrderList"> 
+            <Link to="/purchaseOrder/purchaseOrderList" className="link"> 
                 <li><CircleNotificationsRoundedIcon className="icon"/><span> Purchase Orders </span></li>
             </Link>
             </ul>

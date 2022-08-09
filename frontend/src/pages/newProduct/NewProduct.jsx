@@ -10,8 +10,8 @@ import { createProduct } from "../../actions/productListAction";
 import { warehouseListAction } from "../../actions/warehouseAction";
 
 const NewProduct = () => {
-  //Using state to keep track of what the selected fruit is
-  const [warehouseName, setwarehouseName] = useState("⬇️ Select a warehouse ⬇️")
+  //Using state to keep track of what the selected fruit is⬇️ Select a warehouse ⬇️
+  const [warehouseName, setwarehouseName] = useState("")
 
   const [productData, setproductData] = useState({ name: '', image: '', imageName: '', brand: '', category: '', description: '', price: '', countInStock: '' });
   const [formErrors, setFormErrors] = useState({});
@@ -61,7 +61,7 @@ const NewProduct = () => {
     } else {
 
       dispatch(createProduct(formData));
-      navigate('/');
+      navigate('/products');
     }
     setIsSubmit(true);
   }
@@ -86,12 +86,20 @@ const NewProduct = () => {
     // if(values.email && !(values.email.match(pattern))) {
     //   errors.email = "Your email is not match!";
     // }
+    if (!values.price)
+      errors.price = "Your price is required!";
 
-    if (!values.image)
+     
+    
+     
+    if (!values.category)
+      errors.category = "Your category is required!";
+
+      if (warehouseName=="")
+      errors.warehouseName = "Your warehouse is required!";
+
+      if (productData.imageName=="")
       errors.image = "Your image is required!";
-
-    if (!values.phone)
-      errors.phone = "Your category is required!";
 
     return errors;
   }
@@ -119,7 +127,7 @@ const NewProduct = () => {
                 </div>
               </div>
             </div> */}
-          <Form onSubmit={handleSubmit} noValidate validated={isSubmit} enctype="multipart/form-data">
+          <Form autoComplete="off" onSubmit={handleSubmit} noValidate validated={isSubmit} enctype="multipart/form-data">
             <Form.Group className="mb-3" controlId="formBasicName" onSubmit={handleSubmit}>
               <Form.Label>Name</Form.Label>
               <Form.Control type="text" required placeholder="Enter name" name="name" value={productData.name} onChange={(e) => setproductData({ ...productData, name: e.target.value })} />
@@ -134,7 +142,7 @@ const NewProduct = () => {
 
             <Form.Group className="mb-3" controlId="formBasicImage">
               <Form.Label>Image</Form.Label>
-              <Form.Control type="file" required placeholder="Enter Image" onChange={(e) => (console.log(e.target.files[0].name), setproductData({ ...productData, image: e.target.files[0], imageName: e.target.files[0].name }))} />
+              <Form.Control type="file" required placeholder="Enter Image" name="image" onChange={(e) => (console.log(e.target.files[0].name), setproductData({ ...productData, image: e.target.files[0], imageName: e.target.files[0].name }))} />
               <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>
             </Form.Group>
 
@@ -158,20 +166,22 @@ const NewProduct = () => {
 
             <Form.Group className="mb-3" controlId="formBasicPrice">
               <Form.Label>Price</Form.Label>
-              <Form.Control type="text" required placeholder="Enter Price " name="price" value={productData.price} onChange={(e) => setproductData({ ...productData, price: e.target.value })} />
+              <Form.Control type="number" required placeholder="Enter Price " name="price" value={productData.price} onChange={(e) => setproductData({ ...productData, price: e.target.value })} />
               <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
             </Form.Group>
 
 
             <Form.Group className="mb-3" controlId="formBasicQTY">
-              <Form.Label>countInStock</Form.Label>
-              <Form.Control type="text" required placeholder="Enter QTY " name="brand" value={productData.countInStock} onChange={(e) => setproductData({ ...productData, countInStock: e.target.value })} />
+              <Form.Label>Count In Stock</Form.Label>
+              <Form.Control type="number" required placeholder="Enter QTY " name="brand" value={productData.countInStock} onChange={(e) => setproductData({ ...productData, countInStock: e.target.value })} />
               <Form.Control.Feedback type="invalid">{formErrors.price}</Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group controlId="formBasicSelect">
-              <Form.Label>Select Norm Type</Form.Label>
+              <Form.Label>Select Warehouse </Form.Label>
               <Form.Control
+              name="warehouseName"
+              required
                 as="select"
                 value={warehouseName}
                 onChange={e => {
@@ -179,14 +189,15 @@ const NewProduct = () => {
                   setwarehouseName(e.target.value);
                 }}
               >
-                <option value="⬇️ Select a warehouse ⬇️"> -- Select a Warehouse -- </option>
+                <option value=""> -- Select a Warehouse -- </option>
                 {warehouseLists.map((warehouse) => <option value={warehouse.name}>{warehouse.name}</option>)}
 
               </Form.Control>
-              <Form.Control.Feedback type="invalid">{formErrors.warehouse}</Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">{formErrors.warehouseName}</Form.Control.Feedback>
             </Form.Group>
 
             <br/>
+            
             <Button variant="success" type="submit">
               Add
             </Button>

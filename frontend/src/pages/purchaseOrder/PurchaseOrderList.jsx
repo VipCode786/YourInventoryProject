@@ -76,7 +76,7 @@ const PurchaseOrderList = () => {
           <tr>
           
            
-            <th>Product Name</th>
+            <th>Purchase Order Number</th>
             <th>Created At  </th>
             <th>Updated At  </th>
             <th></th>

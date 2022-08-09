@@ -3,7 +3,8 @@
   
     flex:1;
     border-right:0.5px solid lightgrey;
-    min-height: 100vh;
+    min-height: 130vh;
+    background-color: #102E37;
     .top{
          height: 50px;
          display: flex;
@@ -27,13 +28,16 @@
             list-style: none;
             margin: 0;
             padding: 15px;
-
+           .link{
+            text-decoration: none
+           }
             li{
+                
                display: flex;
                align-items: center;
                padding: 5px;
                cursor: pointer; 
-
+               
                &:hover{
                 background-color: aliceblue;
                }
@@ -45,8 +49,8 @@
 
                span{
                 font-size: 20px;
-                font-weight:300px;
-                color:#888888;
+                font-weight: bold;
+                color:#818283;
                 padding: 5px;
                }
             }
