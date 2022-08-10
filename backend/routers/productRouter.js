@@ -97,6 +97,7 @@ productRouter.put(
    isAuth,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
+   
     const productId = req.params.id;
     const product = await Product.findById(productId);
     console.log(typeof product)
@@ -105,7 +106,7 @@ productRouter.put(
       console.log("product11111111",product._id)
       product.name = req.body.name;
       product.price = req.body.price;
-      product.image = req.file.filename ;
+     // product.image = req.body.image || req.file.filename ;
       product.category = req.body.category;
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;

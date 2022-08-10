@@ -48,8 +48,9 @@ const ProductEdit = () => {
   const handleSubmit = (e) => {
      e.preventDefault();
     const formData = new FormData();
+   
     formData.append('name', productData.name);
-    formData.append('image', productData.image);
+   
     formData.append('brand', productData.brand);
     formData.append('category', productData.category);
     formData.append('description', productData.description);
@@ -95,20 +96,20 @@ const ProductEdit = () => {
 
               {/* <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Email</Form.Label>{!!formErrors.email ? 'true' : 'false'}
-                <Form.Control type="email" required placeholder="Enter email" name="email" value={productData.email} onChange={(e) => setEmployeeData({ ...productData, email: e.target.value })} isInvalid={formErrors.email} />
+                <Form.Control type="email" required placeholder="Enter email" name="email" value={productData.email} onChange={(e) => setEmployeeData({ ...productData, email: e.target.value })} isInvalid={formErrors.email} , imageName:e.target.files[0].name/>
                 <Form.Control.Feedback type="invalid">{formErrors.email}</Form.Control.Feedback>
               </Form.Group> */}
-           <Form.Group className="mb-3" controlId="formBasicImage">
+           {/*  <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Image</Form.Label>
                 <Form.Control type="text" required placeholder="Enter Image"  value={productData.image} onChange={(e) => setproductData({ ...productData, image: e.target.value})} readOnly />
-               {/* <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  */}
+              <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  
               </Form.Group> 
               
            <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Image</Form.Label>
-                <Form.Control type="file"  placeholder="Enter Image"  filename={productData.image} onChange={(e) =>  (console.log(e.target.files[0].name) , setproductData({ ...productData, image: e.target.files[0] , imageName:e.target.files[0].name}))} />
-               {/* <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  */}
-              </Form.Group>  
+                <Form.Control type="file"  placeholder="Enter Image"  filename={productData.image} onChange={(e) =>  ( setproductData({ ...productData, imageName: e.target.files[0] , image:e.target.files[0].name}))} />
+                <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  
+              </Form.Group> */} 
               <Form.Group className="mb-3" controlId="formBasicBrand">
                 <Form.Label>Brand</Form.Label>
                 <Form.Control type="text" required placeholder="Enter Brand" name="brand" value={productData.brand} onChange={(e) => setproductData({ ...productData, brand: e.target.value })} />
