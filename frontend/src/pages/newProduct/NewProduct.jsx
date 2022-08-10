@@ -11,9 +11,10 @@ import { warehouseListAction } from "../../actions/warehouseAction";
 
 const NewProduct = () => {
   //Using state to keep track of what the selected fruit is⬇️ Select a warehouse ⬇️
-  const [warehouseName, setwarehouseName] = useState("")
+  
 
   const [productData, setproductData] = useState({ name: '', image: '', imageName: '', brand: '', category: '', description: '', price: '', countInStock: '' });
+  const [warehouseName, setwarehouseName] = useState("")
   const [formErrors, setFormErrors] = useState({});
   const dispatch = useDispatch();
   const warehousedispatch = useDispatch();
