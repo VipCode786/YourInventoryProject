@@ -50,7 +50,7 @@ const ProductEdit = () => {
     const formData = new FormData();
    
     formData.append('name', productData.name);
-    formData.append('image', productData.image);
+    //formData.append('image', productData.image);
     formData.append('brand', productData.brand);
     formData.append('category', productData.category);
     formData.append('description', productData.description);
@@ -105,11 +105,11 @@ const ProductEdit = () => {
               <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>  
               </Form.Group>  */}
               
-           <Form.Group className="mb-3" controlId="formBasicImage">
+           {/* <Form.Group className="mb-3" controlId="formBasicImage">
                 <Form.Label>Image</Form.Label>
                 <Form.Control type="file"  placeholder="Enter Image"  filename={productData.image} onChange={(e) =>  ( setproductData({ ...productData, image: e.target.files[0] }))} />
-                {/* <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>   */}
-              </Form.Group> 
+                 <Form.Control.Feedback type="invalid">{formErrors.image}</Form.Control.Feedback>   
+              </Form.Group>  */}
               <Form.Group className="mb-3" controlId="formBasicBrand">
                 <Form.Label>Brand</Form.Label>
                 <Form.Control type="text" required placeholder="Enter Brand" name="brand" value={productData.brand} onChange={(e) => setproductData({ ...productData, brand: e.target.value })} />
