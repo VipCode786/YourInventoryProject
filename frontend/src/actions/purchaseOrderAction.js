@@ -12,7 +12,11 @@ import {
 
     GET_PURCHASE_ORDER_DETAIL_REQUEST,
     GET_PURCHASE_ORDER_DETAIL_SUCCESS,
-    GET_PURCHASE_ORDER_DETAIL_FAIL
+    GET_PURCHASE_ORDER_DETAIL_FAIL,
+
+    TOTAL_PURCHASE_ORDER_REQUEST,
+    TOTAL_PURCHASE_ORDER_SUCCESS,
+    TOTAL_PURCHASE_ORDER_FAIL,
     } from "../constants/purchaseOrderConstants";
 
 
@@ -86,6 +90,26 @@ export const createPurchaseOrder = (purchaseInfo) => async (dispatch,getState) =
     } catch (error) {
       dispatch({
         type: GET_PURCHASE_ORDER_FAIL,
+        payload:
+          error.data && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+
+  export const totalPurchaseOrder = () => async (dispatch,getState) => {
+    try {
+      dispatch({ type: TOTAL_PURCHASE_ORDER_REQUEST });
+      
+      const { data } = await axios.get(
+        `/api/purchaseOrder/totalOrder`,
+      );
+      dispatch({ type: TOTAL_PURCHASE_ORDER_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: TOTAL_PURCHASE_ORDER_FAIL,
         payload:
           error.data && error.response.data.message
             ? error.response.data.message

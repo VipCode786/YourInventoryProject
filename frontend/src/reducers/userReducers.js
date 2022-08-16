@@ -13,6 +13,9 @@ import {
     USER_LIST_FAIL,
     USER_LIST_REQUEST,
     USER_LIST_SUCCESS,
+    USER_COUNT_FAIL,
+    USER_COUNT_REQUEST,
+    USER_COUNT_SUCCESS,
 
     USER_UPDATE_PROFILE_FAIL,
   USER_UPDATE_PROFILE_REQUEST,
@@ -93,6 +96,21 @@ import {
         return state;
     }
   };
+
+
+  export const userCountReducer = (state = {}, action) => {
+    switch (action.type) {
+      case USER_COUNT_REQUEST:
+        return { loading: true  };
+      case USER_COUNT_SUCCESS:
+        return { loading: false, userCounts: action.payload };
+      case USER_COUNT_FAIL:
+        return { loading: false, error: action.payload };
+      default:
+        return state;
+    }
+  };
+
 
   export const userDeleteReducer = (state = {}, action) => {
     switch (action.type) {

@@ -26,6 +26,16 @@ userRouter.get(
   })
 );
 
+userRouter.get(
+  '/usercount',
+  //isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const count = await User.countDocuments({});
+    res.send([ count ]);
+    console.log("users",[count])
+  })
+);
+
 userRouter.post(
   '/signin',
   

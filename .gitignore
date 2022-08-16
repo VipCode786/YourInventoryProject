@@ -2,12 +2,14 @@
 
 # dependencies
 node_modules
+images
 /frontend/node_modules
 /.pnp
 .pnp.js
 /frontend/package-lock.json
 # testing
 /coverage
+
 
 # production
 build

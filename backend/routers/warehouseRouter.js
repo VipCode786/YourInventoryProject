@@ -27,6 +27,15 @@ warehouseRouter.get(
   })
 );
 
+warehouseRouter.get(
+  '/totalWarehouse',
+  //isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const warehouses = await Warehouse.countDocuments({});
+    res.send([warehouses]);
+  })
+);
+
 
 
 warehouseRouter.post(

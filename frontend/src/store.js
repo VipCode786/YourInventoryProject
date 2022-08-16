@@ -1,12 +1,13 @@
 import {compose, createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
-import { productCreateReducer, productListReducer, productUpdateReducer } from "../src/reducers/productListReducer";
+import { productCreateReducer, productListReducer, productUpdateReducer, totalProductReducer } from "../src/reducers/productListReducer";
 import { userRegisterReducer,
    userSigninReducer,
    userDetailsReducer,
    userUpdateProfileReducer ,
    userListReducer,
    userDeleteReducer,
+   userCountReducer
  } from '../src/reducers/userReducers';
 
  import {
@@ -14,13 +15,15 @@ import { userRegisterReducer,
   warehouseCreateReducer,
   warehouseDeleteReducer,
   warehouseUpdateReducer,
+  totalWarehouseReducer,
  } from '../src/reducers/warehouseListReducer';
 
 import { transferReducer } from "../src/reducers/transferReducer";
 
 import { purchaseOrderReducer , 
          purchaseOrderListReducer,
-         purchaseDetailsReducer
+         purchaseDetailsReducer,
+         totalpurchaseOrderReducer
 } from "../src/reducers/purchaseOrderReducer";
 
 const rootReducer = combineReducers({
@@ -38,7 +41,11 @@ const rootReducer = combineReducers({
   transfer : transferReducer,
   purchaseOrder : purchaseOrderReducer,
   purchaseOrderList : purchaseOrderListReducer,
-  purchaseDetails : purchaseDetailsReducer
+  purchaseDetails : purchaseDetailsReducer,
+  userCount: userCountReducer,
+  totalOrder:totalpurchaseOrderReducer,
+  totalWarehouse:totalWarehouseReducer,
+  totalProduct:totalProductReducer
 });
 
 const intialState = {

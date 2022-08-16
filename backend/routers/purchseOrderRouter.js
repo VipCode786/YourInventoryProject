@@ -16,6 +16,16 @@ purchaseOrderRouter.get(
   })
 );
 
+purchaseOrderRouter.get(
+  '/totalOrder',
+   //isAuth,
+  // isAdmin,
+  expressAsyncHandler(async (req, res) => {
+    // const orders = await Order.find({}).populate('user', 'name');
+    const totalOrders = await PurchaseOrder.countDocuments({});
+    res.send([totalOrders]);
+  })
+);
 
 purchaseOrderRouter.get(
   '/:id',

@@ -22,6 +22,10 @@ import {
   USER_LIST_SUCCESS,
   USER_LIST_FAIL,
 
+  USER_COUNT_REQUEST,
+  USER_COUNT_SUCCESS,
+  USER_COUNT_FAIL,
+
   USER_DELETE_REQUEST,
   USER_DELETE_SUCCESS,
   USER_DELETE_FAIL
@@ -142,6 +146,28 @@ export const listUsers = () => async (dispatch,getState) => {
     dispatch({ type: USER_LIST_FAIL, payload: message });
   }
 };
+
+export const countUsers = () => async (dispatch,getState) => {
+  dispatch({ type: USER_COUNT_REQUEST });
+  try {
+    // const {
+    //   userSignin: { userInfoData },
+    // } = getState();
+    const { data } = await Axios.get('/api/users/usercount', {
+      // headers: {
+      //   Authorization: `Bearer ${userInfoData.token}`,
+      // },
+    });
+    dispatch({ type: USER_COUNT_SUCCESS, payload: data });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({ type: USER_COUNT_FAIL, payload: message });
+  }
+};
+
 
 export const deleteUser = (userId) => async (dispatch, getState) => {
   dispatch({ type: USER_DELETE_REQUEST, payload: userId });

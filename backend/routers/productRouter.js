@@ -19,6 +19,15 @@ productRouter.get(
   })
 );
 
+productRouter.get(
+  '/totalProduct',
+ // isAuth,
+  expressAsyncHandler(async (req, res) => {
+    const totalProducts = await Product.countDocuments({});
+    res.send([totalProducts]);
+  })
+);
+
 
 // productRouter.get(
 //   '/seed',
@@ -106,7 +115,11 @@ productRouter.put(
       console.log("product11111111",product._id)
       product.name = req.body.name;
       product.price = req.body.price;
-     // product.image = req.body.image || req.file.filename ;
+      if(req.body.image)
+      {
+        product.image = req.file.filename ;
+      }
+      
       product.category = req.body.category;
       product.brand = req.body.brand;
       product.countInStock = req.body.countInStock;

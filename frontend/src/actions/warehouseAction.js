@@ -3,6 +3,10 @@ import { GET_WAREHOUSELIST_FAIL,
          GET_WAREHOUSELIST_REQUEST,
          GET_WAREHOUSELIST_SUCCESS,
 
+         GET_TOTALWAREHOUSE_FAIL,
+         GET_TOTALWAREHOUSE_REQUEST,
+         GET_TOTALWAREHOUSE_SUCCESS,
+
          WAREHOUSE_CREATE_REQUEST,
          WAREHOUSE_CREATE_SUCCESS,
          WAREHOUSE_CREATE_FAIL,
@@ -41,6 +45,34 @@ export const warehouseListAction = () => async (dispatch, getState) => {
     });
   }
 };
+
+
+export const totalWarehouseCount = () => async (dispatch, getState) => {
+  try {
+    // const {
+    //   userSignin: { userInfoData },
+    //  } = getState();
+    dispatch({ type: GET_TOTALWAREHOUSE_REQUEST });
+    const { data } = await axios.get(
+      `/api/warehouses/totalWarehouse`,
+      // {
+      //   headers: { Authorization: `Bearer ${userInfoData.token}` },
+      // }
+    );
+
+    console.log(data);
+    dispatch({ type: GET_TOTALWAREHOUSE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_TOTALWAREHOUSE_FAIL,
+      payload:
+        error.data && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 
 export const addWarehouse = (warehouse) => async (dispatch,getState) => {
   dispatch({ type: WAREHOUSE_CREATE_REQUEST });

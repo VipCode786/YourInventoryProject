@@ -31,6 +31,23 @@ import { GET_WAREHOUSELIST_FAIL,
         }
       };
 
+
+      export const totalWarehouseReducer = (state = {}, action) => {
+        switch (action.type) {
+          case GET_WAREHOUSELIST_REQUEST:
+            return { loading: true, };
+      
+          case GET_WAREHOUSELIST_SUCCESS:
+            return { loading: false, totalWarehouses: action.payload };
+      
+          case GET_WAREHOUSELIST_FAIL:
+            return { loading: false, totalWarehouses: action.payload };
+      
+          default:
+            return state;
+        }
+      };
+
       export const warehouseCreateReducer = (state = {}, action) => {
         switch (action.type) {
           case WAREHOUSE_CREATE_REQUEST:

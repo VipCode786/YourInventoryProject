@@ -8,6 +8,9 @@ import {
     GET_PURCHASE_ORDER_SUCCESS,
     GET_PURCHASE_ORDER_FAIL,
 
+    TOTAL_PURCHASE_ORDER_REQUEST,
+    TOTAL_PURCHASE_ORDER_SUCCESS,
+    TOTAL_PURCHASE_ORDER_FAIL,
     
     GET_PURCHASE_ORDER_DETAIL_REQUEST,
     GET_PURCHASE_ORDER_DETAIL_SUCCESS,
@@ -59,3 +62,19 @@ import {
     }
   };
 
+
+  export const totalpurchaseOrderReducer = (state = { }, action) => {
+    switch (action.type) {
+      case TOTAL_PURCHASE_ORDER_REQUEST:
+        return { loading: true, };
+  
+      case TOTAL_PURCHASE_ORDER_SUCCESS:
+        return { loading: false, totalpurchaseOrders: action.payload };
+  
+      case TOTAL_PURCHASE_ORDER_FAIL:
+        return { loading: false, totalpurchaseOrders: action.payload };
+  
+      default:
+        return state;
+    }
+  };

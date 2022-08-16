@@ -31,6 +31,23 @@ import { GET_PRODUCTLIST_REQUEST,
     }
   };
 
+  export const totalProductReducer = (state = { }, action) => {
+    switch (action.type) {
+      case GET_PRODUCTLIST_REQUEST:
+        return { loading: true };
+  
+      case GET_PRODUCTLIST_SUCCESS:
+        return { loading: false, totalProducts: action.payload };
+  
+      case GET_PRODUCTLIST_FAIL:
+        return { loading: false, totalProduct: action.payload };
+  
+      default:
+        return state;
+    }
+  };
+
+
   export const productCreateReducer = (state = {}, action) => {
     switch (action.type) {
       case PRODUCT_CREATE_REQUEST:
