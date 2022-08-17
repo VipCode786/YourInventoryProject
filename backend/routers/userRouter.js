@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler';
 import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
-import { generateToken, isAuth } from '../utils.js';
+import { generateToken, isAdmin, isAuth } from '../utils.js';
 
 const userRouter = express.Router();
 
@@ -20,6 +20,7 @@ userRouter.get(
 userRouter.get(
   '/',
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const users = await User.find({});
     res.send(users);
@@ -65,6 +66,7 @@ userRouter.post(
 userRouter.post(
   '/register',
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = new User({
       name: req.body.name,
@@ -101,6 +103,7 @@ userRouter.post(
 userRouter.get(
   '/:id',
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {
@@ -113,6 +116,7 @@ userRouter.get(
 userRouter.put(
   '/:id',
   isAuth,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const userID = req.params.id;
     const user = await User.findById(userID);
@@ -143,7 +147,7 @@ userRouter.put(
 userRouter.delete(
   '/:id',
   isAuth,
-  // isAdmin,
+  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
     if (user) {

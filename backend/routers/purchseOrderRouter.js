@@ -2,12 +2,13 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 //import Order from '../models/orderModel.js';
 import PurchaseOrder from '../models/purchaseOrderModel.js';
-import { isAdmin, isAuth } from '../utils.js';
+import { isAdmin, isAuth, isGeneratePurchaseOrder, isListPurchaseOrder } from '../utils.js';
 
 const purchaseOrderRouter = express.Router();
 purchaseOrderRouter.get(
   '/',
    isAuth,
+   isListPurchaseOrder,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     // const orders = await Order.find({}).populate('user', 'name');
@@ -30,6 +31,7 @@ purchaseOrderRouter.get(
 purchaseOrderRouter.get(
   '/:id',
   isAuth,
+  isListPurchaseOrder,
   expressAsyncHandler(async (req, res) => {
     const purchaseProducts = await PurchaseOrder.findById(req.params.id);
     if (purchaseProducts) {
@@ -64,7 +66,7 @@ purchaseOrderRouter.get(
 //   })
 // );
 
-purchaseOrderRouter.post('/', expressAsyncHandler(async (req, res)=>{
+purchaseOrderRouter.post('/', isGeneratePurchaseOrder,expressAsyncHandler(async (req, res)=>{
   const purchaseOrder = new PurchaseOrder({
     purchaseOrderItems : req.body.purchaseInfo.map((x)=> ({...x, product:x.id})),
   });

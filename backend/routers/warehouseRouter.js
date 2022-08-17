@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import data from '../data.js';
 import User from '../models/userModel.js';
 import Warehouse from '../models/warehouseModel.js'
-import { generateToken, isAuth } from '../utils.js';
+import { generateToken, isAuth, isWarehouse } from '../utils.js';
 
 const warehouseRouter = express.Router();
 
@@ -21,6 +21,7 @@ warehouseRouter.get(
 warehouseRouter.get(
   '/',
   isAuth,
+  isWarehouse,
   expressAsyncHandler(async (req, res) => {
     const warehouses = await Warehouse.find({});
     res.send(warehouses);
@@ -41,6 +42,7 @@ warehouseRouter.get(
 warehouseRouter.post(
   '/add',
   isAuth,
+  isWarehouse,
   expressAsyncHandler(async (req, res) => {
     const warehouse = new Warehouse({
       name: req.body.name,
@@ -65,6 +67,7 @@ warehouseRouter.post(
 warehouseRouter.get(
   '/:id',
   isAuth,
+  isWarehouse,
   expressAsyncHandler(async (req, res) => {
     const warehouse = await Warehouse.findById(req.params.id);
     if (warehouse) {
@@ -77,6 +80,7 @@ warehouseRouter.get(
 warehouseRouter.put(
   '/:id',
   isAuth,
+  isWarehouse,
   expressAsyncHandler(async (req, res) => {
     const warehouseID = req.params.id;
     const warehouse = await Warehouse.findById(warehouseID);
@@ -107,6 +111,7 @@ warehouseRouter.put(
 warehouseRouter.delete(
   '/:id',
    isAuth,
+   isWarehouse,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
     const warehouse = await Warehouse.findById(req.params.id);

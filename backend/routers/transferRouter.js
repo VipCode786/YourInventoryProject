@@ -2,7 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Product from '../models/productModel.js';
-import { isAdmin, isAuth } from '../utils.js';
+import { isAdmin, isAuth, isTransfer } from '../utils.js';
 import multer from 'multer';
 import path from 'path';
 import Transfer from '../models/transferModel.js';
@@ -14,6 +14,7 @@ const transferRouter = express.Router();
 transferRouter.get(
   '/',
   isAuth,
+  isTransfer,
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({});
     res.send(products);
@@ -34,6 +35,7 @@ transferRouter.get(
 transferRouter.get(
     '/product',
     isAuth,
+    isTransfer,
      expressAsyncHandler(async (req, res) => {
        const productName = req.body.name
        const warehouseName = req.body.warehouse
@@ -47,6 +49,7 @@ transferRouter.get(
 transferRouter.get(
   '/:id',
   isAuth,
+  isTransfer,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -62,6 +65,7 @@ transferRouter.get(
 transferRouter.post(
   '/',
   isAuth,
+  isTransfer,
   expressAsyncHandler(async (req, res) => {
 
     let createdProduct 
@@ -190,6 +194,7 @@ transferRouter.post(
 transferRouter.post(
   '/:id',
    isAuth,
+   isTransfer,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
 

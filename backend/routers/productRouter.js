@@ -2,7 +2,7 @@ import express from 'express';
 import expressAsyncHandler from 'express-async-handler';
 import data from '../data.js';
 import Product from '../models/productModel.js';
-import { isAdmin, isAuth } from '../utils.js';
+import { isAdmin, isAuth, isProduct } from '../utils.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -13,6 +13,7 @@ const productRouter = express.Router();
 productRouter.get(
   '/',
   isAuth,
+  isProduct,
   expressAsyncHandler(async (req, res) => {
     const products = await Product.find({}).sort({updatedAt: -1});
     res.send(products);
@@ -42,6 +43,7 @@ productRouter.get(
 productRouter.get(
   '/:id',
   isAuth,
+  isProduct,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -67,7 +69,7 @@ let upload = multer({ storage: storage });
 
 
 productRouter.post(
-  '/',isAuth,upload.single('image'),
+  '/',isAuth,isProduct,upload.single('image'),
   expressAsyncHandler(async (req, res) => {
     const product = new Product({
       name: req.body.name,
@@ -104,6 +106,7 @@ productRouter.post(
 productRouter.put(
   '/:id',upload.single('image'),
    isAuth,
+   isProduct,
   // isAdmin,
   expressAsyncHandler(async (req, res) => {
    
@@ -137,6 +140,7 @@ productRouter.delete(
   '/:id',
    isAuth,
   // isAdmin,
+  isProduct,
   expressAsyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {

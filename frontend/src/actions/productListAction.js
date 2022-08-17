@@ -50,15 +50,15 @@ export const productListAction = () => async (dispatch, getState) => {
 
 export const totalNoProduct = () => async (dispatch, getState) => {
   try {
-    const {
-      userSignin: { userInfoData },
-     } = getState();
+    // const {
+    //   userSignin: { userInfoData },
+    //  } = getState();
     dispatch({ type: GET_TOTALPRODUCT_REQUEST });
     const { data } = await axios.get(
       `/api/products/totalProduct`,
-      {
-        headers: { Authorization: `Bearer ${userInfoData.token}` },
-      }
+      // {
+      //   headers: { Authorization: `Bearer ${userInfoData.token}` },
+      // }
     );
 
     console.log(data);
