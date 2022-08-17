@@ -25,6 +25,7 @@ import { purchaseOrderReducer ,
          purchaseDetailsReducer,
          totalpurchaseOrderReducer
 } from "../src/reducers/purchaseOrderReducer";
+import { homeReducer } from "./reducers/homeReducer";
 
 const rootReducer = combineReducers({
   productList: productListReducer,
@@ -45,7 +46,8 @@ const rootReducer = combineReducers({
   userCount: userCountReducer,
   totalOrder:totalpurchaseOrderReducer,
   totalWarehouse:totalWarehouseReducer,
-  totalProduct:totalProductReducer
+  totalProduct:totalProductReducer,
+  home1: homeReducer
 });
 
 const intialState = {

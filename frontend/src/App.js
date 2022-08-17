@@ -30,16 +30,16 @@ import MaterialUIpurchaseOrder from "./pages/purchaseOrder/MaterialUIpurchaseOrd
 
 function App() {
 
-  useEffect(() => {
-    const beforeunloadHandle = () => {
-      return true;
-    };
+  // useEffect(() => {
+  //   const beforeunloadHandle = () => {
+  //     return true;
+  //   };
   
-    window.addEventListener("beforeunload", beforeunloadHandle);
-    return () => {
-      window.removeEventListener("removeEventListener", beforeunloadHandle);
-    };
-  }, []);
+  //   window.addEventListener("beforeunload", beforeunloadHandle);
+  //   return () => {
+  //     window.removeEventListener("removeEventListener", beforeunloadHandle);
+  //   };
+  // }, []);
 
   return (
     <div className="App">
@@ -51,10 +51,11 @@ function App() {
      <BrowserRouter>
      
     <Routes>
-      <Route path="/">
+      <Route  path="/">
        <Route index element={<Home/>}/>
-         <Route path="logIn" element={<LogInUser/>}/>
+       <Route path="logIn" element={<LogInUser/>}/>
          {/*  <Route path="home" element={<Home/>}/>   */}
+       </Route>
         <Route path="users">
           <Route index element={<UserList/>}/>
           <Route path="register" element={<NewUser/>}/>
@@ -81,8 +82,9 @@ function App() {
            <Route path="purchaseOrderList" element={<PurchaseOrderList/>}/>       
            <Route path=":id" element={<PurchaseOrderDetails/>}/> 
         </Route>
-      </Route>
+      
     </Routes>
+   
   </BrowserRouter> 
 
   {/* <ToastContainer autoClose={5000}/>  */}

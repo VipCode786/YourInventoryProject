@@ -1,6 +1,10 @@
 import { GET_PRODUCTLIST_REQUEST,
          GET_PRODUCTLIST_SUCCESS , 
          GET_PRODUCTLIST_FAIL,
+
+         GET_TOTALPRODUCT_REQUEST,
+         GET_TOTALPRODUCT_SUCCESS , 
+         GET_TOTALPRODUCT_FAIL,
          
          PRODUCT_CREATE_REQUEST,
          PRODUCT_CREATE_SUCCESS,
@@ -33,13 +37,13 @@ import { GET_PRODUCTLIST_REQUEST,
 
   export const totalProductReducer = (state = { }, action) => {
     switch (action.type) {
-      case GET_PRODUCTLIST_REQUEST:
+      case GET_TOTALPRODUCT_REQUEST:
         return { loading: true };
   
-      case GET_PRODUCTLIST_SUCCESS:
+      case GET_TOTALPRODUCT_SUCCESS:
         return { loading: false, totalProducts: action.payload };
   
-      case GET_PRODUCTLIST_FAIL:
+      case GET_TOTALPRODUCT_FAIL:
         return { loading: false, totalProduct: action.payload };
   
       default:
@@ -93,3 +97,5 @@ import { GET_PRODUCTLIST_REQUEST,
         return state;
     }
   };
+
+  

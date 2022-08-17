@@ -129,12 +129,14 @@ function Widget({ type }) {
         default:
             break;
     }
-
+    // {data.totalUser} {data.totalPurchaseOrder}{data.totalNoWarehouse} {data.totalNumberOfProduct}
     return (
-        <div className="widget">
+        <>
+          <div className="widget">
             <div className="left">
+                
                 <span className="title">{data.title}</span>
-                <span className="counter">{data.isMoney && "$"} {data.totalUser} {data.totalPurchaseOrder}{data.totalNoWarehouse} {data.totalNumberOfProduct}</span>
+                <span className="counter">{data.isMoney && "$"} {data.totalUser || data.totalPurchaseOrder || data.totalNoWarehouse || data.totalNumberOfProduct}</span>
                
                 <span className="link">{data.link}</span>
             </div>
@@ -149,6 +151,8 @@ function Widget({ type }) {
             </div>
 
         </div>
+        </>
+            
     );
 }
 
