@@ -48,7 +48,7 @@ function App() {
      
    
       
-     <BrowserRouter>
+    <BrowserRouter>
      
     <Routes>
       <Route  path="/">
@@ -82,10 +82,9 @@ function App() {
            <Route path="purchaseOrderList" element={<PurchaseOrderList/>}/>       
            <Route path=":id" element={<PurchaseOrderDetails/>}/> 
         </Route>
-      
     </Routes>
    
-  </BrowserRouter> 
+    </BrowserRouter> 
 
   {/* <ToastContainer autoClose={5000}/>  */}
     </div>
