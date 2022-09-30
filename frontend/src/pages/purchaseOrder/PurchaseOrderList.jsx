@@ -90,7 +90,7 @@ const PurchaseOrderList = () => {
             </tr>
           </tbody> */}
 
-        { purchaseOrderLists.filter((val)=>{
+        { purchaseOrderLists?.filter((val)=>{
                // console.log(val)
               if( searchTerm === ''){
                 return val;

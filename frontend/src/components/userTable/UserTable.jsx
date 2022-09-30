@@ -52,7 +52,7 @@ const UserTable = ({userLists}) => {
           </tr>
         </tbody> */}
       
-       {currentTableData.map((user) => (
+       {currentTableData?.map((user) => (
         <tbody >
           <tr >
             

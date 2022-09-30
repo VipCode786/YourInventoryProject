@@ -147,7 +147,7 @@ const PurchaseOrder = () => {
             </tr>
           </tbody> */}
 
-        { productLists.filter((val)=>{
+        { productLists?.filter((val)=>{
                // console.log(val)
               if( searchTerm === ''){
                 return val;

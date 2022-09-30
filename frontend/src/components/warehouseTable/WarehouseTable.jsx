@@ -42,7 +42,7 @@ const WarehouseTable = ({warehouseLists}) => {
           </tr>
         </tbody> */}
       
-       {warehouseLists.map((warehouse) => (
+       {warehouseLists?.map((warehouse) => (
         <tbody >
           <tr >
             

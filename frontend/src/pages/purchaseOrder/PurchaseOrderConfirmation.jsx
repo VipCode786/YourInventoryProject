@@ -179,7 +179,7 @@ const PurchaseOrderConfirmation = () => {
             </tr>
           </tbody> */}
 
-        { from.filter((val)=>{
+        { from?.filter((val)=>{
                 //console.log(val)
               if( searchTerm === ''){
                 return val;
